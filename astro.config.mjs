@@ -18,5 +18,9 @@ export default defineConfig({
     react(),
     sitemap({ i18n: { defaultLocale: 'en', locales: { en: 'en-GB', es: 'es-ES' } } }),
   ],
-  vite: { plugins: [tailwindcss()] },
+  vite: {
+    plugins: [tailwindcss()],
+    // Astro builds with target esnext, which makes the CSS minifier drop -webkit-backdrop-filter (Safari < 18).
+    build: { cssTarget: ['chrome111', 'edge111', 'firefox114', 'safari16.4', 'ios16.4'] },
+  },
 });

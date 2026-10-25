@@ -1,10 +1,8 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { t } from '../i18n/utils';
+
+const tr = t('en');
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<title>Eduardo Serrano · Backend Software Engineer</title>
-	</head>
-	<body></body>
-</html>
+<BaseLayout title={tr('meta.home.title')} description={tr('meta.home.description')} />
