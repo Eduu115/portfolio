@@ -25,7 +25,25 @@ function diffRatio(actual: Buffer, ref: string, refY: number, name: string, max:
 
 async function open(page: Page, path = '/') {
   await page.goto(path);
-  await page.evaluate(() => document.fonts.ready);
+  // Lazy images below the fold would be blank in a full-page capture.
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+    const imgs = [...document.images];
+    imgs.forEach((img) => (img.loading = 'eager'));
+    await Promise.all(imgs.map((img) => img.decode().catch(() => {})));
+  });
+}
+
+/** Full-page comparison: height difference <= 24px and different pixels <= max over the common height. */
+async function fullPage(page: Page, ref: string, name: string, max: number) {
+  const shot = PNG.sync.read(await page.screenshot({ fullPage: true }));
+  const r = PNG.sync.read(readFileSync(REF + ref));
+  const height = Math.min(shot.height, r.height);
+  console.log(`${name}: page ${shot.height}px, reference ${r.height}px`);
+  const top = new PNG({ width: shot.width, height });
+  PNG.bitblt(shot, top, 0, 0, shot.width, height, 0, 0);
+  expect(Math.abs(shot.height - r.height)).toBeLessThanOrEqual(24);
+  expect(diffRatio(PNG.sync.write(top), ref, 0, name, max)).toBeLessThanOrEqual(max);
 }
 
 const header = {
@@ -39,6 +57,20 @@ const footer = {
   'mobile-dark': 'home-mobile-dark-390.png',
 } as Record<string, string>;
 
+test('home matches the reference (full page)', async ({ page }, info) => {
+  const ref = { 'desktop-dark': 'home-desktop-dark-1440.png', 'mobile-dark': 'home-mobile-dark-390.png' }[info.project.name];
+  test.skip(!ref, 'no full-page reference for this project');
+  await open(page);
+  await fullPage(page, ref!, `home-${info.project.name}`, info.project.name === 'mobile-dark' ? 0.03 : 0.02);
+});
+
+test('light home matches the reference (0 to 1386px)', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop-light', 'light only');
+  await open(page);
+  const shot = await page.screenshot({ fullPage: true, clip: { x: 0, y: 0, width: 1440, height: 1386 } });
+  expect(diffRatio(shot, 'home-desktop-light-1440-hero-about.png', 0, 'home-light', 0.02)).toBeLessThanOrEqual(0.02);
+});
+
 test('header matches the reference', async ({ page }, info) => {
   const ref = header[info.project.name];
   await open(page);
@@ -51,9 +83,10 @@ test('footer matches the reference', async ({ page }, info) => {
   const ref = footer[info.project.name];
   test.skip(!ref, 'no footer reference for this project');
   await open(page);
-  // From the footer's top rule to its bottom edge, aligned with the bottom of the reference page.
-  const top = await page.locator('footer > div').evaluate((el) => el.getBoundingClientRect().top + scrollY);
-  const end = await page.locator('footer').evaluate((el) => el.getBoundingClientRect().bottom + scrollY);
+  // From the footer's top rule to the end of the page, aligned with the end of the reference page
+  // (whole pixels, so a fractional footer height cannot shift the rule by one row).
+  const top = Math.floor(await page.locator('footer > div').evaluate((el) => el.getBoundingClientRect().top + scrollY));
+  const end = await page.evaluate(() => document.documentElement.scrollHeight);
   const width = page.viewportSize()!.width;
   const shot = await page.screenshot({ fullPage: true, clip: { x: 0, y: top, width, height: end - top } });
   const refHeight = PNG.sync.read(readFileSync(REF + ref)).height;

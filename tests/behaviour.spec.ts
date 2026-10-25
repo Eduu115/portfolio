@@ -96,3 +96,21 @@ for (const width of [320, 390, 768, 1024, 1280, 1440]) {
     }
   });
 }
+
+test('copy email writes to the clipboard and announces it', async ({ page, context }, info) => {
+  test.skip(info.project.name !== 'desktop-dark', 'runs once');
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await page.goto('/');
+  const button = page.getByRole('button', { name: 'Copy email address' });
+  await button.click();
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe('serranotrenado.e@gmail.com');
+  await expect(page.locator('#copy-status')).toHaveText('Email address copied');
+  await expect(button).toHaveAttribute('data-state', 'copied');
+  await expect(page.locator('#copy-status')).toHaveText('', { timeout: 3000 });
+});
+
+test('pulse is hidden with reduced motion', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop-dark', 'runs once');
+  await page.goto('/');
+  expect(await page.locator('.pulse').evaluate((el) => getComputedStyle(el).display)).toBe('none');
+});
