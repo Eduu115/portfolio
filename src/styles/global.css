@@ -100,14 +100,13 @@
   img { display: block; max-width: 100%; height: auto; }
   :focus-visible { outline: 2px solid var(--accent-text); outline-offset: 3px; border-radius: 6px; }
   ::selection { background: var(--accent); color: var(--on-accent); }
-  section[id] { scroll-margin-top: 80px; }
 }
 
 /* ---------- Tipografía (valores exactos del canvas) ---------- */
 @utility font-display { font-family: var(--font-sans); font-stretch: 75%; font-weight: 800; color: var(--ink); text-wrap: balance; }
 @utility font-wide { font-stretch: 125%; }
 @utility mono { font-family: var(--font-mono); font-stretch: 87.5%; letter-spacing: 0; }
-@utility label { font-family: var(--font-mono); font-stretch: 87.5%; font-size: 12px; line-height: 1.5; color: var(--muted); }
+@utility label { font-family: var(--font-mono); font-stretch: 87.5%; font-size: 12px; line-height: 1.5; color: var(--muted); @media (width < 768px) { font-size: 11.5px; } }
 @utility t-hero { font-size: clamp(44px, 5.6vw, 80px); line-height: .96; letter-spacing: -.02em; }
 @utility t-case-hero { font-size: 120px; line-height: .88; letter-spacing: -.025em; }
 @utility t-contact { font-size: 72px; line-height: .95; letter-spacing: -.02em; }
