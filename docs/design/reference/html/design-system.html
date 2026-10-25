@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Design system, tokens and components</title>
+
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Martian+Mono:wdth,wght@75..112.5,100..800&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C0E}
+.pf{--canvas:#0B0C0E;--surface-1:#131518;--surface-2:#1A1D21;--hairline:#24272C;--hairline-strong:#33373D;--ink:#F2F3F5;--body:#B9BEC6;--muted:#8A9099;--accent:#FF6B1A;--accent-text:var(--accent);--on-accent:#0B0C0E;--fail:#F2555A;--font-sans:'Archivo','Archivo Variable',ui-sans-serif,system-ui,sans-serif;--font-mono:'Martian Mono','Martian Mono Variable',ui-monospace,SFMono-Regular,Menlo,monospace;--accent-line:color-mix(in srgb,var(--accent) 38%,transparent);background:var(--canvas);color:var(--body);font-family:var(--font-sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.pf *{box-sizing:border-box}
+.pf h1,.pf h2,.pf h3,.pf p,.pf ul,.pf dl,.pf dd{margin:0}
+.pf ul{padding:0;list-style:none}
+.mono{font-family:var(--font-mono);font-stretch:87.5%}
+.disp{font-family:var(--font-sans);font-stretch:75%;font-weight:800;color:var(--ink)}
+.k{font-family:var(--font-mono);font-stretch:87.5%;font-size:12px;line-height:1.5;color:var(--muted)}
+.h2{font-family:var(--font-sans);font-stretch:75%;font-weight:800;color:var(--ink);font-size:40px;line-height:1;letter-spacing:-0.01em}
+.sw{display:grid;grid-template-columns:56px minmax(0,1fr) auto;gap:16px;align-items:center;padding:10px 0;border-top:1px solid var(--hairline)}
+.chip{width:56px;height:40px;border-radius:6px;border:1px solid rgba(128,128,128,.35)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:48px;padding:0 20px;border-radius:8px;font:600 15px/1 var(--font-sans);white-space:nowrap}
+.tag{display:inline-flex;align-items:center;font-family:var(--font-mono);font-stretch:87.5%;font-size:11.5px;line-height:1;padding:6px 10px;border-radius:999px;background:var(--surface-2);border:1px solid var(--hairline);color:var(--body);white-space:nowrap}
+.cell{background:var(--surface-1);border:1px solid var(--hairline);border-radius:12px;padding:28px;display:flex;flex-direction:column;gap:18px}
+.row{display:grid;grid-template-columns:200px minmax(0,1fr) 300px;gap:24px;align-items:baseline;padding:18px 0;border-top:1px solid var(--hairline)}
+</style>
+</helmet>
+<div class="pf" style="box-sizing: border-box; width: 1440px; padding: 80px; display: flex; flex-direction: column; gap: 88px;">
+
+<header style="display: flex; flex-direction: column; gap: 20px; max-width: 1000px;">
+<p class="k">portfolio / design system v1</p>
+<h1 class="disp" style="font-size: 88px; line-height: 0.92; letter-spacing: -0.02em;">Production grade</h1>
+<p style="font-size: 19px; line-height: 1.55; color: var(--ink);">Near-black canvas, one signal-orange accent used sparingly, condensed heavy display type over a calm grotesque, and a monospace voice for system facts. Structure borrowed from the ClickHouse DESIGN.md (awesome-design-md): flat surfaces, hairlines, no shadows, accent at element level and once as a full band.</p>
+<dl style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; padding-top: 20px; border-top: 1px solid var(--hairline);">
+<div><dt class="k">DESIGN_VARIANCE</dt><dd class="disp" style="font-size: 40px;">6</dd></div>
+<div><dt class="k">MOTION_INTENSITY</dt><dd class="disp" style="font-size: 40px;">4</dd></div>
+<div><dt class="k">VISUAL_DENSITY</dt><dd class="disp" style="font-size: 40px;">4</dd></div>
+<div><dt class="k">theme</dt><dd style="color: var(--ink); padding-top: 8px;">system default, dark first, manual toggle</dd></div>
+</dl>
+</header>
+
+<section style="display: flex; flex-direction: column; gap: 28px;">
+<h2 class="h2">Color tokens</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px;">
+<div style="display: flex; flex-direction: column;">
+<p class="k" style="padding-bottom: 12px;">dark (default)</p>
+<div class="sw"><span class="chip" style="background: #0B0C0E;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--canvas</span><br><span style="font-size: 14px;">Page background</span></span><span class="mono" style="font-size: 12px;">#0B0C0E</span></div>
+<div class="sw"><span class="chip" style="background: #131518;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--surface-1</span><br><span style="font-size: 14px;">Cards, nodes, secondary buttons</span></span><span class="mono" style="font-size: 12px;">#131518</span></div>
+<div class="sw"><span class="chip" style="background: #1A1D21;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--surface-2</span><br><span style="font-size: 14px;">Tags, nested panels, active tab</span></span><span class="mono" style="font-size: 12px;">#1A1D21</span></div>
+<div class="sw"><span class="chip" style="background: #24272C;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--hairline</span><br><span style="font-size: 14px;">1px borders and dividers</span></span><span class="mono" style="font-size: 12px;">#24272C</span></div>
+<div class="sw"><span class="chip" style="background: #33373D;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--hairline-strong</span><br><span style="font-size: 14px;">Button borders, rails, bullets</span></span><span class="mono" style="font-size: 12px;">#33373D</span></div>
+<div class="sw"><span class="chip" style="background: #F2F3F5;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--ink</span><br><span style="font-size: 14px;">Headings, emphasis. 17.6:1</span></span><span class="mono" style="font-size: 12px;">#F2F3F5</span></div>
+<div class="sw"><span class="chip" style="background: #B9BEC6;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--body</span><br><span style="font-size: 14px;">Running text. 10.5:1</span></span><span class="mono" style="font-size: 12px;">#B9BEC6</span></div>
+<div class="sw"><span class="chip" style="background: #8A9099;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--muted</span><br><span style="font-size: 14px;">Labels, dates, meta. 6.1:1</span></span><span class="mono" style="font-size: 12px;">#8A9099</span></div>
+<div class="sw"><span class="chip" style="background: #FF6B1A;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--accent / --accent-text</span><br><span style="font-size: 14px;">Primary CTA, stats, rail pulse. 6.9:1</span></span><span class="mono" style="font-size: 12px;">#FF6B1A</span></div>
+<div class="sw"><span class="chip" style="background: #0B0C0E;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--on-accent</span><br><span style="font-size: 14px;">Text on accent. 6.9:1</span></span><span class="mono" style="font-size: 12px;">#0B0C0E</span></div>
+<div class="sw" style="border-bottom: 1px solid var(--hairline);"><span class="chip" style="background: #F2555A;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--fail</span><br><span style="font-size: 14px;">Failure state in diagrams only</span></span><span class="mono" style="font-size: 12px;">#F2555A</span></div>
+</div>
+<div style="display: flex; flex-direction: column;">
+<p class="k" style="padding-bottom: 12px;">light</p>
+<div class="sw"><span class="chip" style="background: #F4F5F6;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--canvas</span><br><span style="font-size: 14px;">Page background</span></span><span class="mono" style="font-size: 12px;">#F4F5F6</span></div>
+<div class="sw"><span class="chip" style="background: #FCFCFD;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--surface-1</span><br><span style="font-size: 14px;">Cards, nodes</span></span><span class="mono" style="font-size: 12px;">#FCFCFD</span></div>
+<div class="sw"><span class="chip" style="background: #ECEEF0;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--surface-2</span><br><span style="font-size: 14px;">Tags, nested panels</span></span><span class="mono" style="font-size: 12px;">#ECEEF0</span></div>
+<div class="sw"><span class="chip" style="background: #DADDE1;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--hairline</span><br><span style="font-size: 14px;">1px borders</span></span><span class="mono" style="font-size: 12px;">#DADDE1</span></div>
+<div class="sw"><span class="chip" style="background: #C5C9CF;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--hairline-strong</span><br><span style="font-size: 14px;">Button borders, rails</span></span><span class="mono" style="font-size: 12px;">#C5C9CF</span></div>
+<div class="sw"><span class="chip" style="background: #0E1013;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--ink</span><br><span style="font-size: 14px;">Headings. 17.5:1</span></span><span class="mono" style="font-size: 12px;">#0E1013</span></div>
+<div class="sw"><span class="chip" style="background: #3A3F47;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--body</span><br><span style="font-size: 14px;">Running text. 9.7:1</span></span><span class="mono" style="font-size: 12px;">#3A3F47</span></div>
+<div class="sw"><span class="chip" style="background: #5F656E;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--muted</span><br><span style="font-size: 14px;">Labels, meta. 5.4:1</span></span><span class="mono" style="font-size: 12px;">#5F656E</span></div>
+<div class="sw"><span class="chip" style="background: #FF6B1A;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--accent</span><br><span style="font-size: 14px;">Fills only (buttons, pulse, brand square)</span></span><span class="mono" style="font-size: 12px;">#FF6B1A</span></div>
+<div class="sw"><span class="chip" style="background: #C2410C;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--accent-text</span><br><span style="font-size: 14px;">Accent as text or icon. 4.7:1</span></span><span class="mono" style="font-size: 12px;">#C2410C</span></div>
+<div class="sw" style="border-bottom: 1px solid var(--hairline);"><span class="chip" style="background: #CE2C31;"></span><span><span class="mono" style="font-size: 13px; color: var(--ink);">--fail</span><br><span style="font-size: 14px;">Failure state in diagrams only</span></span><span class="mono" style="font-size: 12px;">#CE2C31</span></div>
+</div>
+</div>
+<p style="font-size: 15px; max-width: 70ch;">Derived: <span class="mono" style="font-size: 13px; color: var(--ink);">--accent-line</span> = accent at 38% (dark) or accent-text at 45% (light), for outlined tags and highlighted borders. <span class="mono" style="font-size: 13px; color: var(--ink);">--accent-soft</span> = accent at 9%, only for the pulse halo. No tinted card backgrounds: orange over near-black turns brown.</p>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 8px;">
+<h2 class="h2" style="padding-bottom: 20px;">Typography</h2>
+<div class="row"><span class="k">display-xl / H1</span><span class="disp" style="font-size: 80px; line-height: 0.96; letter-spacing: -0.02em;">Backend systems.</span><span class="mono" style="font-size: 12px;">Archivo 800, wdth 75, 80/0.96, -0.02em. Mobile 46. Case study H1 120/0.88</span></div>
+<div class="row"><span class="k">display-lg / H2</span><span class="disp" style="font-size: 56px; line-height: 1; letter-spacing: -0.015em;">Selected work</span><span class="mono" style="font-size: 12px;">Archivo 800, wdth 75, 56/1, -0.015em. Mobile 40</span></div>
+<div class="row"><span class="k">display-md / H3</span><span class="disp" style="font-size: 40px; line-height: 1; letter-spacing: -0.01em;">saveToWin</span><span class="mono" style="font-size: 12px;">Archivo 800, wdth 75, 40/1. API Arena card 64. Mobile 32</span></div>
+<div class="row"><span class="k">stat</span><span class="disp" style="font-size: 96px; line-height: 0.9; letter-spacing: -0.025em; color: var(--accent-text);">1 month</span><span class="mono" style="font-size: 12px;">Archivo 800, wdth 75, 96/0.9, -0.025em, accent-text. Only stat on the site (About). Mobile 64</span></div>
+<div class="row"><span class="k">title</span><span style="font-size: 26px; line-height: 1.2; font-weight: 650; color: var(--ink);">Events were disappearing</span><span class="mono" style="font-size: 12px;">Archivo 650, wdth 100, 26/1.2 (bugs), 22/1.3 (roles)</span></div>
+<div class="row"><span class="k">body-lg</span><span style="font-size: 19px; line-height: 1.55;">Java, Spring Boot, Kafka. Sole architect of API Arena.</span><span class="mono" style="font-size: 12px;">Archivo 400, 19/1.55. Mobile 17</span></div>
+<div class="row"><span class="k">body</span><span style="font-size: 16px; line-height: 1.6;">Idempotent consumers built on natural keys and unique constraints.</span><span class="mono" style="font-size: 12px;">Archivo 400, 16/1.6, max 60ch. Small: 15/1.55, 14/1.4</span></div>
+<div class="row"><span class="k">mono label</span><span class="mono" style="font-size: 12px; color: var(--muted);">symptom   cause   fix   role   stack</span><span class="mono" style="font-size: 12px;">Martian Mono 400, wdth 87.5, 12/1.5, lowercase, muted</span></div>
+<div class="row"><span class="k">mono value</span><span class="mono" style="font-size: 13px; color: var(--ink);">submission-service</span><span class="mono" style="font-size: 12px;">Martian Mono 400, wdth 87.5, 13 (12.5 in nodes)</span></div>
+<div class="row" style="border-bottom: 1px solid var(--hairline);"><span class="k">wordmark</span><span style="font-stretch: 125%; font-weight: 700; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink);">Eduardo Serrano</span><span class="mono" style="font-size: 12px;">Archivo 700, wdth 125, 13, +0.06em, uppercase. Footer giant: 800, wdth 125, 6.4vw max 92</span></div>
+</section>
+
+<section style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px;">
+<div class="cell">
+<h3 class="k">spacing and layout</h3>
+<dl style="display: grid; grid-template-columns: 120px minmax(0, 1fr); row-gap: 8px; font-size: 14.5px;">
+<dt class="k">container</dt><dd>max 1344, padding 32 (content 1280)</dd>
+<dt class="k">mobile pad</dt><dd>20</dd>
+<dt class="k">section gap</dt><dd>112 desktop, 72 mobile</dd>
+<dt class="k">hero</dt><dd>pt 88, pb 80; mobile pt 48</dd>
+<dt class="k">grid gap</dt><dd>24 cards, 40 columns, 48 split</dd>
+<dt class="k">card pad</dt><dd>40 hero card, 36 bento, 28 aside, 24 mobile</dd>
+<dt class="k">nav</dt><dd>64 tall, 60 mobile, sticky, blur 12</dd>
+<dt class="k">base unit</dt><dd>4</dd>
+</dl>
+</div>
+<div class="cell">
+<h3 class="k">radius</h3>
+<div style="display: flex; flex-direction: column; gap: 12px; font-size: 14.5px;">
+<div style="display: flex; align-items: center; gap: 14px;"><span style="width: 48px; height: 32px; border: 1px solid var(--hairline-strong); border-radius: 6px;"></span>6: inner segmented items, deploy chips</div>
+<div style="display: flex; align-items: center; gap: 14px;"><span style="width: 48px; height: 32px; border: 1px solid var(--hairline-strong); border-radius: 8px;"></span>8: buttons, nodes, images, inputs</div>
+<div style="display: flex; align-items: center; gap: 14px;"><span style="width: 48px; height: 32px; border: 1px solid var(--hairline-strong); border-radius: 12px;"></span>12: cards, portrait</div>
+<div style="display: flex; align-items: center; gap: 14px;"><span style="width: 48px; height: 32px; border: 1px solid var(--hairline-strong); border-radius: 16px;"></span>16: contact band (14 mobile)</div>
+<div style="display: flex; align-items: center; gap: 14px;"><span style="width: 48px; height: 32px; border: 1px solid var(--hairline-strong); border-radius: 999px;"></span>pill: tags, kafka node</div>
+<div style="display: flex; align-items: center; gap: 14px;"><span style="width: 48px; height: 32px; border: 1px solid var(--hairline-strong); border-radius: 0; background: var(--accent); width: 32px;"></span>0: brand square only</div>
+</div>
+</div>
+<div class="cell">
+<h3 class="k">motion</h3>
+<dl style="display: grid; grid-template-columns: 110px minmax(0, 1fr); row-gap: 8px; font-size: 14.5px;">
+<dt class="k">ease</dt><dd>cubic-bezier(.16, 1, .3, 1)</dd>
+<dt class="k">hover</dt><dd>180ms color, border, transform</dd>
+<dt class="k">press</dt><dd>scale .98</dd>
+<dt class="k">hero in</dt><dd>rise 800ms, 14px, delays 0, 60, 120, 180, 260</dd>
+<dt class="k">reveal</dt><dd>sections fade up 16px, 600ms, once, 20% visible</dd>
+<dt class="k">pulse</dt><dd>7.2s loop, holds at each node, node lights accent</dd>
+<dt class="k">images</dt><dd>scale 1.02 on card hover, 600ms</dd>
+<dt class="k">reduced</dt><dd>everything static, pulse hidden</dd>
+</dl>
+</div>
+</section>
+
+<section style="display: flex; flex-direction: column; gap: 28px;">
+<h2 class="h2">Components</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px;">
+<div class="cell">
+<h3 class="k">buttons: default, hover, focus, pressed</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+<span class="btn" style="background: #FF6B1A; color: #0B0C0E;">See the work</span>
+<span class="btn" style="background: color-mix(in srgb, #FF6B1A 88%, #fff); color: #0B0C0E;">Hover</span>
+<span class="btn" style="background: #FF6B1A; color: #0B0C0E; outline: 2px solid #FF6B1A; outline-offset: 3px;">Focus</span>
+<span class="btn" style="background: #FF6B1A; color: #0B0C0E; transform: scale(.98);">Pressed</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+<span class="btn" style="background: var(--surface-1); color: var(--ink); border: 1px solid var(--hairline-strong);">Email me</span>
+<span class="btn" style="background: var(--surface-1); color: var(--ink); border: 1px solid var(--muted);">Hover</span>
+<span class="btn" style="background: #FF6B1A; color: #0B0C0E;"><span style="display: inline-flex; align-items: center; height: 40px; padding: 0 16px; border-radius: 8px; background: #0B0C0E; color: #F2F3F5;">On accent</span></span>
+</div>
+<p style="font-size: 14px;">48 tall, padding 0 20, radius 8, Archivo 600 15. One label per intent on the whole site: "Email me" is the only contact label.</p>
+</div>
+<div class="cell">
+<h3 class="k">tags, links, key-value</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 8px;"><span class="tag">idempotent consumers</span><span class="tag" style="color: var(--ink); border-color: var(--accent-line); background: transparent;">money as integer cents, never floats</span></div>
+<div style="display: flex; gap: 24px; font-weight: 600; color: var(--ink);"><span style="display: inline-flex; align-items: center; gap: 8px;">apiarena.net<svg width="14" height="14" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,64V168a8,8,0,0,1-16,0V83.31L69.66,197.66a8,8,0,0,1-11.32-11.32L172.69,72H88a8,8,0,0,1,0-16H192A8,8,0,0,1,200,64Z"/></svg></span><span style="text-decoration: underline; text-decoration-color: var(--hairline-strong); text-underline-offset: 5px; font-weight: 400;">inline link</span><span style="text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 5px; font-weight: 400;">inline hover</span></div>
+<dl style="display: grid; grid-template-columns: 96px minmax(0, 1fr); column-gap: 16px; row-gap: 10px;"><dt class="k">role</dt><dd style="color: var(--ink);">Sole architect and developer</dd><dt class="k">period</dt><dd>01/2026 - now</dd></dl>
+</div>
+<div class="cell">
+<h3 class="k">pipeline nodes: default, failed, fallback, dead letter</h3>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;">
+<div style="background: var(--surface-1); border: 1px solid var(--hairline-strong); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 4px;"><span class="mono" style="font-size: 12.5px; color: var(--ink);">testing</span><span style="font-size: 13px;">default</span></div>
+<div style="background: var(--surface-1); border: 1px dashed var(--fail); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 4px;"><span class="mono" style="font-size: 12.5px; color: var(--fail);">sandbox</span><span style="font-size: 13px;">failed</span></div>
+<div style="background: var(--surface-1); border: 1px solid var(--accent); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 4px;"><span class="mono" style="font-size: 12.5px; color: var(--ink);">fallback</span><span style="font-size: 13px;">took over</span></div>
+<div style="background: var(--surface-1); border: 1px dashed var(--hairline-strong); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 4px;"><span class="mono" style="font-size: 12.5px; color: var(--ink);">DLT</span><span style="font-size: 13px;">parked</span></div>
+</div>
+<p style="font-size: 14px;">Failure is never told by color alone: dashed border plus an x-circle icon plus a label.</p>
+</div>
+<div class="cell">
+<h3 class="k">segmented controls</h3>
+<div style="display: flex; gap: 4px; padding: 4px; border: 1px solid var(--hairline); border-radius: 10px; background: var(--canvas); align-self: flex-start;">
+<span style="display: inline-flex; align-items: center; height: 40px; padding: 0 14px; border-radius: 6px; background: var(--surface-2); color: var(--ink); border: 1px solid var(--hairline-strong); font-size: 14px; font-weight: 500;">Happy path</span>
+<span style="display: inline-flex; align-items: center; height: 40px; padding: 0 14px; border-radius: 6px; color: var(--muted); font-size: 14px; font-weight: 500;">A consumer fails</span>
+<span style="display: inline-flex; align-items: center; height: 40px; padding: 0 14px; border-radius: 6px; color: var(--muted); font-size: 14px; font-weight: 500;">The sandbox fails</span>
+</div>
+<div class="mono" style="display: flex; align-items: center; height: 36px; padding: 3px; border: 1px solid var(--hairline); border-radius: 8px; font-size: 12px; align-self: flex-start;">
+<span style="display: flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 5px; background: var(--surface-2); color: var(--ink);">EN</span>
+<span style="display: flex; align-items: center; height: 28px; padding: 0 10px; color: var(--muted);">ES</span>
+</div>
+<p style="font-size: 14px;">Buttons with aria-pressed (scenario) and links with aria-current (language). Icons: Phosphor regular, currentColor, 12 to 22 px.</p>
+</div>
+</div>
+</section>
+
+</div>
+</x-dc>
+
+</body>
+</html>

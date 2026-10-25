@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mobile menu, open</title>
+
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Martian+Mono:wdth,wght@75..112.5,100..800&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C0E}
+.pf{--canvas:#0B0C0E;--surface-1:#131518;--surface-2:#1A1D21;--hairline:#24272C;--hairline-strong:#33373D;--ink:#F2F3F5;--body:#B9BEC6;--muted:#8A9099;--accent:#FF6B1A;--on-accent:#0B0C0E;--font-sans:'Archivo','Archivo Variable',ui-sans-serif,system-ui,sans-serif;--font-mono:'Martian Mono','Martian Mono Variable',ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--canvas);color:var(--body);font-family:var(--font-sans);-webkit-font-smoothing:antialiased}
+.pf *{box-sizing:border-box}
+.pf p,.pf ul{margin:0;padding:0;list-style:none}
+.mono{font-family:var(--font-mono);font-stretch:87.5%}
+.ml{display:flex;align-items:center;justify-content:space-between;min-height:64px;border-bottom:1px solid var(--hairline);color:var(--ink);text-decoration:none;font-stretch:75%;font-weight:800;font-size:40px;line-height:1;letter-spacing:-0.015em}
+</style>
+</helmet>
+<div class="pf" style="width: 390px; height: 844px; display: flex; flex-direction: column;">
+<div style="height: 60px; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--hairline);">
+<span style="display: flex; align-items: center; gap: 10px; color: var(--ink);"><span aria-hidden="true" style="width: 10px; height: 10px; background: var(--accent); display: block;"></span><span style="font-stretch: 125%; font-weight: 700; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;">Eduardo Serrano</span></span>
+<a href="home-mobile.html" aria-label="Close menu" style="width: 44px; height: 44px; margin-right: -10px; display: flex; align-items: center; justify-content: center; color: var(--ink);"><svg width="22" height="22" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg></a>
+</div>
+<nav aria-label="Primary" style="padding: 16px 20px 0; flex: 1;">
+<ul>
+<li><a class="ml" href="home-mobile.html">About<svg width="22" height="22" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="color: var(--muted);"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a></li>
+<li><a class="ml" href="home-mobile.html">Work<svg width="22" height="22" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="color: var(--muted);"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a></li>
+<li><a class="ml" href="home-mobile.html">Experience<svg width="22" height="22" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="color: var(--muted);"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a></li>
+<li><a class="ml" href="home-mobile.html">Contact<svg width="22" height="22" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="color: var(--muted);"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a></li>
+</ul>
+<a href="/cv/eduardo-serrano-cv-en.pdf" style="display: flex; align-items: center; gap: 10px; min-height: 56px; color: var(--body); text-decoration: none; font-size: 16px; font-weight: 500; border-bottom: 1px solid var(--hairline);"><svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z"/></svg>Résumé (PDF)</a>
+<div style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; border-bottom: 1px solid var(--hairline);">
+<span class="mono" style="font-size: 12px; color: var(--muted);">language</span>
+<div role="group" aria-label="Language" class="mono" style="display: flex; height: 40px; padding: 3px; border: 1px solid var(--hairline); border-radius: 8px; font-size: 12px;">
+<a href="/" aria-current="true" style="display: flex; align-items: center; padding: 0 14px; border-radius: 5px; background: var(--surface-2); color: var(--ink); text-decoration: none;">EN</a>
+<a href="/es/" lang="es" style="display: flex; align-items: center; padding: 0 14px; border-radius: 5px; color: var(--muted); text-decoration: none;">ES</a>
+</div>
+</div>
+<div style="display: flex; align-items: center; justify-content: space-between; min-height: 64px; border-bottom: 1px solid var(--hairline);">
+<span class="mono" style="font-size: 12px; color: var(--muted);">theme</span>
+<div role="group" aria-label="Theme" class="mono" style="display: flex; height: 40px; padding: 3px; border: 1px solid var(--hairline); border-radius: 8px; font-size: 12px;">
+<button type="button" aria-pressed="false" style="display: flex; align-items: center; padding: 0 12px; border: 0; border-radius: 5px; background: transparent; color: var(--muted); font: inherit;">system</button>
+<button type="button" aria-pressed="true" style="display: flex; align-items: center; padding: 0 12px; border: 0; border-radius: 5px; background: var(--surface-2); color: var(--ink); font: inherit;">dark</button>
+<button type="button" aria-pressed="false" style="display: flex; align-items: center; padding: 0 12px; border: 0; border-radius: 5px; background: transparent; color: var(--muted); font: inherit;">light</button>
+</div>
+</div>
+</nav>
+<div style="padding: 20px 20px 32px;">
+<a href="mailto:serranotrenado.e@gmail.com" style="display: flex; align-items: center; justify-content: center; gap: 10px; height: 52px; border-radius: 8px; background: var(--accent); color: var(--on-accent); font: 600 16px/1 var(--font-sans); text-decoration: none;"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg>Email me</a>
+</div>
+</div>
+</x-dc>
+
+</body>
+</html>

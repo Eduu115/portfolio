@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Home, desktop, light theme</title>
+
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Martian+Mono:wdth,wght@75..112.5,100..800&amp;display=swap">
+<style>
+body{margin:0;background:#F4F5F6}
+.pf{--canvas:#F4F5F6;--surface-1:#FCFCFD;--surface-2:#ECEEF0;--hairline:#DADDE1;--hairline-strong:#C5C9CF;--ink:#0E1013;--body:#3A3F47;--muted:#5F656E;--accent:#FF6B1A;--accent-text:#C2410C;--on-accent:#0B0C0E;--fail:#CE2C31;--font-sans:'Archivo','Archivo Variable',ui-sans-serif,system-ui,sans-serif;--font-mono:'Martian Mono','Martian Mono Variable',ui-monospace,SFMono-Regular,Menlo,monospace;--ease:cubic-bezier(.16,1,.3,1);--accent-hover:color-mix(in srgb,var(--accent) 88%,#000);--accent-soft:color-mix(in srgb,var(--accent) 12%,transparent);--accent-line:color-mix(in srgb,var(--accent-text) 45%,transparent);background:var(--canvas);color:var(--body);font-family:var(--font-sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.pf *{box-sizing:border-box}
+.pf h1,.pf h2,.pf h3,.pf p,.pf ul,.pf ol,.pf dl,.pf dd,.pf figure{margin:0}
+.pf ul,.pf ol{padding:0;list-style:none}
+.wrap{max-width:1344px;margin:0 auto;padding:0 32px}
+.mono{font-family:var(--font-mono);font-stretch:87.5%}
+.disp{font-family:var(--font-sans);font-stretch:75%;font-weight:800;color:var(--ink);text-wrap:balance}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:48px;padding:0 20px;border-radius:8px;font:600 15px/1 var(--font-sans);text-decoration:none;white-space:nowrap;cursor:pointer}
+.btn-p{background:var(--accent);color:var(--on-accent);border:1px solid var(--accent)}
+.btn-p:hover{background:var(--accent-hover)}
+.btn-s{background:var(--surface-1);color:var(--ink);border:1px solid var(--hairline-strong)}
+.btn-s:hover{border-color:var(--muted)}
+.navl{color:var(--body);text-decoration:none;font-size:14px;font-weight:500}
+.navl:hover{color:var(--ink)}
+.kv{display:grid;grid-template-columns:96px minmax(0,1fr);column-gap:16px;row-gap:10px;align-items:baseline}
+.k{font-family:var(--font-mono);font-stretch:87.5%;font-size:12px;line-height:1.5;color:var(--muted)}
+.pf :focus-visible{outline:2px solid var(--accent-text);outline-offset:3px;border-radius:6px}
+</style>
+</helmet>
+<div class="pf">
+
+<header style="position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--canvas) 86%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--hairline);">
+<nav class="wrap" aria-label="Primary" style="height: 64px; display: flex; align-items: center; gap: 32px;">
+<a href="#top" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); flex-shrink: 0;">
+<span aria-hidden="true" style="width: 10px; height: 10px; background: var(--accent); display: block;"></span>
+<span style="font-stretch: 125%; font-weight: 700; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;">Eduardo Serrano</span>
+</a>
+<div style="display: flex; align-items: center; gap: 28px; margin-left: 24px;">
+<a class="navl" href="#about">About</a>
+<a class="navl" href="#work">Work</a>
+<a class="navl" href="#experience">Experience</a>
+<a class="navl" href="#contact">Contact</a>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; margin-left: auto;">
+<a class="navl" href="/cv/eduardo-serrano-cv-en.pdf" style="display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 12px;"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,82.34l-56-56A8,8,0,0,0,152,24H56A16,16,0,0,0,40,40V216a16,16,0,0,0,16,16H200a16,16,0,0,0,16-16V88A8,8,0,0,0,213.66,82.34ZM160,51.31,188.69,80H160ZM200,216H56V40h88V88a8,8,0,0,0,8,8h48V216Zm-32-80a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,136Zm0,32a8,8,0,0,1-8,8H96a8,8,0,0,1,0-16h64A8,8,0,0,1,168,168Z"/></svg>Résumé</a>
+<div role="group" aria-label="Language" class="mono" style="display: flex; align-items: center; height: 36px; padding: 3px; border: 1px solid var(--hairline); border-radius: 8px; font-size: 12px;">
+<a href="/" aria-current="true" style="display: flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 5px; background: var(--surface-2); color: var(--ink); text-decoration: none;">EN</a>
+<a href="/es/" lang="es" style="display: flex; align-items: center; height: 28px; padding: 0 10px; border-radius: 5px; color: var(--muted); text-decoration: none;">ES</a>
+</div>
+<button type="button" aria-label="Switch to dark theme" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 8px; color: var(--body); cursor: pointer;"><svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M233.54,142.23a8,8,0,0,0-8-2,88.08,88.08,0,0,1-109.8-109.8,8,8,0,0,0-10-10,104.84,104.84,0,0,0-52.91,37A104,104,0,0,0,136,224a103.09,103.09,0,0,0,62.52-20.88,104.84,104.84,0,0,0,37-52.91A8,8,0,0,0,233.54,142.23ZM188.9,190.34A88,88,0,0,1,65.66,67.11a89,89,0,0,1,31.4-26A106,106,0,0,0,96,56,104.11,104.11,0,0,0,200,160a106,106,0,0,0,14.92-1.06A89,89,0,0,1,188.9,190.34Z"/></svg></button>
+</div>
+</nav>
+</header>
+
+<main id="top">
+<section aria-labelledby="l-hero" class="wrap" style="padding-top: 72px; padding-bottom: 104px; display: flex; flex-wrap: wrap; align-items: center; gap: 48px 72px;">
+<div style="flex: 7 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 28px;">
+<p style="font-size: 22px; line-height: 1.3; font-weight: 500; color: var(--ink);">Hi, I'm Eduardo.</p>
+<h1 id="l-hero" class="disp" style="font-size: clamp(44px, 5.6vw, 80px); line-height: 0.96; letter-spacing: -0.02em;">I design, build and <span style="color: var(--accent-text);">run</span> backend systems.</h1>
+<p style="font-size: 19px; line-height: 1.55; max-width: 32em;">Backend software engineer in Madrid. I work with Java, Spring Boot and Kafka, and I run what I build.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 12px; padding-top: 4px;">
+<a class="btn btn-p" href="#work">See the work<svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></a>
+<a class="btn btn-s" href="mailto:serranotrenado.e@gmail.com"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48ZM203.43,64,128,133.15,52.57,64ZM216,192H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/></svg>Email me</a>
+</div>
+</div>
+<figure style="flex: 5 1 360px; min-width: 0; max-width: 460px; margin-left: auto;">
+<img src="../../assets/eduardo-portrait.jpg" width="1200" height="1500" alt="Portrait of Eduardo Serrano in a dark suit, arms crossed, in an office corridor" style="display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 12px; border: 1px solid var(--hairline); filter: grayscale(1) contrast(1.04);">
+</figure>
+</section>
+
+<section id="about" aria-labelledby="l-about" class="wrap" style="padding-bottom: 112px; display: flex; flex-wrap: wrap; gap: 48px 80px;">
+<div style="flex: 5 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 40px;">
+<h2 id="l-about" class="disp" style="font-size: 56px; line-height: 1; letter-spacing: -0.015em;">About me</h2>
+<div style="display: flex; flex-direction: column; gap: 12px; padding-top: 28px; border-top: 2px solid var(--accent);">
+<span class="disp" style="font-size: 96px; line-height: 0.9; letter-spacing: -0.025em; color: var(--accent-text);">1 month</span>
+<p style="font-size: 19px; line-height: 1.4; color: var(--ink); max-width: 22em;">From zero SAP to shipping ABAP for a bank.</p>
+<p style="font-size: 15px; line-height: 1.55; max-width: 28em;">I joined Deloitte without knowing SAP. A month later I was writing ABAP for the bank, working alongside a senior developer.</p>
+</div>
+</div>
+<div style="flex: 7 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 22px; padding-top: 6px;">
+<p style="font-size: 24px; line-height: 1.45; color: var(--ink); max-width: 30em;">I like owning a system end to end: designing it, building it and keeping it healthy in production. Today that means SAP ABAP for a regulated bank at Deloitte, and my own projects on a server I run myself.</p>
+<p style="font-size: 18px; line-height: 1.6; max-width: 36em;">For three years I coached youth football with a UEFA C licence. It taught me to lead a group, explain things clearly and stay patient.</p>
+<p style="font-size: 18px; line-height: 1.6; max-width: 36em;">Lately I'm hooked on quantum computing. And yes, I use Claude Code and Cursor every day.</p>
+<dl class="kv" style="margin-top: 10px; padding-top: 24px; border-top: 1px solid var(--hairline); max-width: 36em;">
+<dt class="k">based in</dt><dd>Madrid, Spain. EU citizen.</dd>
+<dt class="k">speaks</dt><dd>Spanish (native), English (B2, professional), French (basic)</dd>
+<dt class="k">studying</dt><dd>BSc Computer Engineering, expected 2029</dd>
+</dl>
+</div>
+</section>
+</main>
+</div>
+</x-dc>
+
+</body>
+</html>

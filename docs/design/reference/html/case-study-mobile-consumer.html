@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Case study, API Arena, mobile</title>
+
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&amp;family=Martian+Mono:wdth,wght@75..112.5,100..800&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C0E}
+.pf{--canvas:#0B0C0E;--surface-1:#131518;--surface-2:#1A1D21;--hairline:#24272C;--hairline-strong:#33373D;--ink:#F2F3F5;--body:#B9BEC6;--muted:#8A9099;--accent:#FF6B1A;--accent-text:var(--accent);--on-accent:#0B0C0E;--fail:#F2555A;--font-sans:'Archivo','Archivo Variable',ui-sans-serif,system-ui,sans-serif;--font-mono:'Martian Mono','Martian Mono Variable',ui-monospace,SFMono-Regular,Menlo,monospace;--accent-line:color-mix(in srgb,var(--accent) 38%,transparent);background:var(--canvas);color:var(--body);font-family:var(--font-sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.pf *{box-sizing:border-box}
+.pf h1,.pf h2,.pf h3,.pf p,.pf ul,.pf ol,.pf dl,.pf dd{margin:0}
+.pf ul,.pf ol{padding:0;list-style:none}
+.wrap{padding:0 20px}
+.mono{font-family:var(--font-mono);font-stretch:87.5%}
+.disp{font-family:var(--font-sans);font-stretch:75%;font-weight:800;color:var(--ink);text-wrap:balance}
+.k{font-family:var(--font-mono);font-stretch:87.5%;font-size:11.5px;line-height:1.5;color:var(--muted)}
+.kv{display:grid;grid-template-columns:72px minmax(0,1fr);column-gap:14px;row-gap:10px;align-items:baseline;font-size:15px;line-height:1.55}
+.svc{background:var(--surface-1);border:1px solid var(--hairline);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:4px}
+.node{background:var(--surface-1);border:1px solid var(--hairline-strong);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.down{display:flex;justify-content:center;height:24px;align-items:center;color:var(--accent-text)}
+.tag{display:inline-flex;align-items:center;font-family:var(--font-mono);font-stretch:87.5%;font-size:11px;line-height:1;padding:6px 9px;border-radius:999px;background:var(--surface-2);border:1px solid var(--hairline);color:var(--body)}
+.bul li{position:relative;padding-left:18px}
+.bul li::before{content:"";position:absolute;left:2px;top:.72em;width:6px;height:6px;background:var(--hairline-strong)}
+</style>
+</helmet>
+<div class="pf" style="width: 100%;">
+<header style="position: sticky; top: 0; z-index: 20; background: color-mix(in srgb, var(--canvas) 86%, transparent); border-bottom: 1px solid var(--hairline);">
+<nav class="wrap" aria-label="Primary" style="height: 60px; display: flex; align-items: center; justify-content: space-between;">
+<a href="home-mobile.html" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink);"><span aria-hidden="true" style="width: 10px; height: 10px; background: var(--accent); display: block;"></span><span style="font-stretch: 125%; font-weight: 700; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;">Eduardo Serrano</span></a>
+<a href="mobile-menu.html" aria-label="Open menu" style="width: 44px; height: 44px; margin-right: -10px; display: flex; align-items: center; justify-content: center; color: var(--ink);"><svg width="22" height="22" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></svg></a>
+</nav>
+</header>
+<main>
+<section class="wrap" aria-labelledby="mc-title" style="padding-top: 24px; padding-bottom: 32px; display: flex; flex-direction: column; gap: 18px;">
+<a href="home-mobile.html" style="display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--muted); text-decoration: none; font-size: 14px; align-self: flex-start;"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"/></svg>All work</a>
+<p class="mono" style="font-size: 12px; color: var(--muted);">Case study</p>
+<h1 id="mc-title" class="disp" style="font-size: 64px; line-height: 0.9; letter-spacing: -0.025em;">API Arena</h1>
+<p style="font-size: 18px; line-height: 1.45; color: var(--ink);">A platform that grades REST APIs built by students, automatically and for real. I designed it, built it alone and run it in production.</p>
+<dl style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 16px; padding-top: 20px; border-top: 1px solid var(--hairline); font-size: 15px;">
+<div style="display: flex; flex-direction: column; gap: 4px;"><dt class="k">role</dt><dd style="color: var(--ink);">Sole architect and developer</dd></div>
+<div style="display: flex; flex-direction: column; gap: 4px;"><dt class="k">period</dt><dd style="color: var(--ink);">01/2026 - now</dd></div>
+<div style="display: flex; flex-direction: column; gap: 4px;"><dt class="k">core</dt><dd style="color: var(--ink);">Java 21, Spring Boot, Kafka</dd></div>
+<div style="display: flex; flex-direction: column; gap: 4px;"><dt class="k">links</dt><dd style="display: flex; flex-direction: column;"><a href="https://apiarena.net" style="color: var(--ink); font-weight: 600; text-decoration: none;">apiarena.net</a><a href="https://github.com/Eduu115/API-ARENA" style="color: var(--ink); font-weight: 600; text-decoration: none;">GitHub</a></dd></div>
+</dl>
+</section>
+<section class="wrap" aria-label="Screenshot" style="padding-bottom: 72px;">
+<img src="../../assets/api-arena-landing.jpg" width="1800" height="1016" alt="API Arena landing page with the live submission panel and test scores" style="display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--hairline);">
+</section>
+<section class="wrap" aria-labelledby="mc-what" style="padding-bottom: 72px; display: flex; flex-direction: column; gap: 18px;">
+<h2 id="mc-what" class="disp" style="font-size: 40px; line-height: 1;">What it does</h2>
+<p style="font-size: 16.5px; line-height: 1.6;">A student picks a challenge and submits a Spring Boot project. API Arena builds it, runs it in its own isolated container, fires real HTTP requests at it, measures how it performs, reviews the code and puts the score on a live leaderboard.</p>
+<p style="font-size: 16.5px; line-height: 1.6;">No mocked answers: the API under test is real, and so are the requests.</p>
+<h3 style="font-size: 14px; font-weight: 600; color: var(--muted); padding-top: 8px;">How a submission is scored</h3>
+<ul style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--hairline); border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden;">
+<li style="background: var(--surface-1); padding: 18px; display: flex; flex-direction: column; gap: 4px;"><span class="disp" style="font-size: 36px; line-height: 1;">300</span><span style="font-size: 14px;">Functional HTTP tests</span></li>
+<li style="background: var(--surface-1); padding: 18px; display: flex; flex-direction: column; gap: 4px;"><span class="disp" style="font-size: 36px; line-height: 1;">300</span><span style="font-size: 14px;">Performance</span></li>
+<li style="background: var(--surface-1); padding: 18px; display: flex; flex-direction: column; gap: 4px;"><span class="disp" style="font-size: 36px; line-height: 1;">200</span><span style="font-size: 14px;">REST design</span></li>
+<li style="background: var(--surface-1); padding: 18px; display: flex; flex-direction: column; gap: 4px;"><span class="disp" style="font-size: 36px; line-height: 1;">200</span><span style="font-size: 14px;">Code review</span></li>
+</ul>
+<p class="mono" style="font-size: 11.5px; color: var(--muted);">Maximum score: 1,000 points.</p>
+</section>
+<section class="wrap" aria-labelledby="mc-arch" style="padding-bottom: 72px; display: flex; flex-direction: column; gap: 18px;">
+<h2 id="mc-arch" class="disp" style="font-size: 40px; line-height: 1;">One service, one job</h2>
+<p style="font-size: 16.5px; line-height: 1.6;">Java 21 and Spring Boot 3.5 behind an nginx gateway, a React 19 frontend, and Kafka between the parts that should never wait on each other.</p>
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<span class="k">pipeline</span>
+<ul style="display: flex; flex-direction: column; gap: 8px;">
+<li class="svc" style="border-color: var(--accent-line);"><div style="display: flex; justify-content: space-between;"><span class="mono" style="font-size: 12.5px; color: var(--ink);">submission-service</span><span class="mono" style="font-size: 11px; color: var(--muted);">:8083</span></div><span style="font-size: 14px; line-height: 1.45;">Orchestrates each run, status, logs and replay timeline</span></li>
+<li class="svc"><div style="display: flex; justify-content: space-between;"><span class="mono" style="font-size: 12.5px; color: var(--ink);">sandbox-service</span><span class="mono" style="font-size: 11px; color: var(--muted);">:8084</span></div><span style="font-size: 14px; line-height: 1.45;">Isolated build and run: Docker-in-Docker or fallback runner</span></li>
+</ul>
+<p class="mono" style="font-size: 11.5px; color: var(--muted);">Same card for every service. Lanes in order: edge, core, pipeline, results, data and ops.</p>
+</div>
+</section>
+<section class="wrap" aria-labelledby="mc-flow" style="padding-bottom: 72px;">
+<div style="background: var(--surface-1); border: 1px solid var(--hairline); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 20px;">
+<h2 id="mc-flow" class="disp" style="font-size: 36px; line-height: 1;">Follow a submission</h2>
+<p style="font-size: 15.5px; line-height: 1.55;">Pick what happens. The diagram shows the path the event takes.</p>
+<div role="group" aria-label="Scenario" style="display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; border: 1px solid var(--hairline); border-radius: 10px; background: var(--canvas);">
+<button type="button" aria-pressed="false" style="flex: 0 0 auto; height: 40px; padding: 0 12px; border-radius: 6px; border: 1px solid transparent; background: transparent; color: var(--muted); font: 500 14px/1 var(--font-sans);">Happy path</button>
+<button type="button" aria-pressed="true" style="flex: 0 0 auto; height: 40px; padding: 0 12px; border-radius: 6px; border: 1px solid var(--hairline-strong); background: var(--surface-2); color: var(--ink); font: 500 14px/1 var(--font-sans);">A consumer fails</button>
+<button type="button" aria-pressed="false" style="flex: 0 0 auto; height: 40px; padding: 0 12px; border-radius: 6px; border: 1px solid transparent; background: transparent; color: var(--muted); font: 500 14px/1 var(--font-sans);">The sandbox fails</button>
+</div>
+<div style="display: flex; flex-direction: column; padding: 16px; border-radius: 10px; background: var(--canvas); border: 1px solid var(--hairline);">
+<div class="node"><span class="mono" style="font-size: 12px; color: var(--ink);">submission-service</span><span style="font-size: 13px;">Accepts the project</span></div>
+<span class="down" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" style="transform: rotate(90deg);"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+<div style="border-left: 1px solid var(--hairline-strong); padding-left: 12px; display: flex; flex-direction: column;">
+<span class="mono" style="font-size: 11px; color: var(--muted); padding-bottom: 8px;">called in order by submission-service</span>
+<div class="node"><span class="mono" style="font-size: 12px; color: var(--ink);">sandbox-service</span><span style="font-size: 13px;">Builds and runs it in Docker-in-Docker</span></div>
+<span class="down" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" style="transform: rotate(90deg);"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+<div class="node"><span class="mono" style="font-size: 12px; color: var(--ink);">testing-service</span><span style="font-size: 13px;">Real HTTP functional and performance tests</span></div>
+<span class="down" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" style="transform: rotate(90deg);"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+<div class="node"><span class="mono" style="font-size: 12px; color: var(--ink);">ai-review-service</span><span style="font-size: 13px;">Code review and final score</span></div>
+</div>
+<span class="down" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" style="transform: rotate(90deg);"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+<div style="display: flex; align-items: center; justify-content: center; height: 36px; border-radius: 999px; border: 1px solid var(--accent-line);"><span class="mono" style="font-size: 12px; color: var(--accent-text);">kafka</span></div>
+<span class="down" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" style="transform: rotate(90deg);"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></svg></span>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;">
+<div class="node"><span class="mono" style="font-size: 12px; color: var(--ink);">notifications</span></div>
+<div class="node" style="border-style: dashed; border-color: var(--fail);"><span style="display: flex; align-items: center; gap: 6px;"><svg width="13" height="13" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="color: var(--fail);"><path d="M165.66,101.66,139.31,128l26.35,26.34a8,8,0,0,1-11.32,11.32L128,139.31l-26.34,26.35a8,8,0,0,1-11.32-11.32L116.69,128,90.34,101.66a8,8,0,0,1,11.32-11.32L128,116.69l26.34-26.35a8,8,0,0,1,11.32,11.32ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></svg><span class="mono" style="font-size: 12px; color: var(--fail);">leaderboard</span></span><span style="font-size: 12.5px;">throws</span></div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;">
+<span></span>
+<div style="display: flex; flex-direction: column; align-items: stretch;">
+<span aria-hidden="true" style="width: 2px; height: 16px; background: var(--accent); align-self: center;"></span>
+<div style="display: flex; align-items: center; justify-content: center; gap: 6px; height: 34px; border-radius: 999px; border: 1px solid var(--accent-line);"><svg width="13" height="13" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="color: var(--accent-text);"><path d="M240,56v48a8,8,0,0,1-8,8H184a8,8,0,0,1,0-16H211.4L184.81,71.64l-.25-.24a80,80,0,1,0-1.67,114.78,8,8,0,0,1,11,11.63A95.44,95.44,0,0,1,128,224h-1.32A96,96,0,1,1,195.75,60L224,85.8V56a8,8,0,1,1,16,0Z"/></svg><span class="mono" style="font-size: 11px; color: var(--ink);">1s, 2s, 4s, 8s</span></div>
+<span aria-hidden="true" style="width: 2px; height: 12px; background: var(--hairline-strong); align-self: center;"></span>
+<div class="node" style="border-style: dashed;"><span class="mono" style="font-size: 12px; color: var(--ink);">leaderboard DLT</span><span class="mono" style="font-size: 10.5px; color: var(--muted);">&lt;topic&gt;.&lt;group&gt;.DLT</span></div>
+</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<h3 style="font-size: 19px; font-weight: 650; color: var(--ink);">A consumer throws</h3>
+<p style="font-size: 15px; line-height: 1.6;">The exception is not swallowed. The event is retried after 1, 2, 4 and 8 seconds and, if it still fails, it lands in that consumer group's dead-letter topic, where it can be inspected. Malformed JSON skips the retries and goes straight there. Consumers are idempotent (natural keys and unique constraints), so a retried event is never counted twice.</p>
+</div>
+<dl class="kv" style="grid-template-columns: 84px minmax(0, 1fr); padding-top: 16px; border-top: 1px solid var(--hairline);">
+<dt class="k">delivery</dt><dd>at least once</dd>
+<dt class="k">duplicates</dt><dd>idempotent consumers</dd>
+<dt class="k">failures</dt><dd>backoff, then DLT per group</dd>
+</dl>
+</div>
+</section>
+<section class="wrap" aria-label="Recognition" style="padding-bottom: 72px;">
+<div style="display: flex; flex-direction: column; gap: 16px; padding: 28px 0; border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline);">
+<svg width="32" height="32" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="color: var(--accent-text);"><path d="M216,96A88,88,0,1,0,72,163.83V240a8,8,0,0,0,11.58,7.16L128,225l44.43,22.21A8.07,8.07,0,0,0,176,248a8,8,0,0,0,8-8V163.83A87.85,87.85,0,0,0,216,96ZM56,96a72,72,0,1,1,72,72A72.08,72.08,0,0,1,56,96ZM168,227.06l-36.43-18.21a8,8,0,0,0-7.16,0L88,227.06V174.37a87.89,87.89,0,0,0,80,0ZM128,152A56,56,0,1,0,72,96,56.06,56.06,0,0,0,128,152Zm0-96A40,40,0,1,1,88,96,40,40,0,0,1,128,56Z"/></svg>
+<p class="disp" style="font-size: 26px; line-height: 1.12;">Final project of my web development diploma. Awarded Matrícula de Honor, the highest distinction, limited per cohort.</p>
+</div>
+</section>
+<section class="wrap" aria-labelledby="mc-cta" style="padding-bottom: 56px;">
+<div style="background: var(--accent); color: var(--on-accent); border-radius: 14px; padding: 28px 22px; display: flex; flex-direction: column; gap: 20px;">
+<h2 id="mc-cta" class="disp" style="font-size: 40px; line-height: 0.95; color: var(--on-accent);">Want to talk about how it works?</h2>
+<a href="mailto:serranotrenado.e@gmail.com" style="display: flex; align-items: center; justify-content: center; gap: 10px; height: 48px; border-radius: 8px; background: #0B0C0E; color: #F2F3F5; font: 600 15px/1 var(--font-sans); text-decoration: none;">Email me</a>
+</div>
+</section>
+</main>
+<footer class="wrap" style="padding-bottom: 24px;">
+<div style="display: flex; flex-direction: column; gap: 10px; padding-top: 22px; border-top: 1px solid var(--hairline); font-size: 13.5px; color: var(--muted);">
+<p>© 2026 Eduardo Serrano Trenado</p>
+<p>Built with Astro. Self-hosted on my own server.</p>
+</div>
+<p aria-hidden="true" style="margin-top: 40px; font-stretch: 125%; font-weight: 800; font-size: 26px; line-height: 0.78; text-transform: uppercase; color: var(--hairline); white-space: nowrap; text-align: center;">Eduardo Serrano</p>
+</footer>
+</div>
+</x-dc>
+
+</body>
+</html>
