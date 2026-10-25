@@ -1,0 +1,28 @@
+# build output
+dist/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# tests
+test-results/
+playwright-report/
+out/
+.playwright-cli/
+
+# logs
+npm-debug.log*
+
+# environment variables
+.env
+.env.local
+.env.production
+
+# local only, never committed
+.claude/
+docs/design/IMPLEMENTATION_PLAN.md
+
+# macOS
+.DS_Store
