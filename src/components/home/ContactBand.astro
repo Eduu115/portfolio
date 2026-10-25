@@ -1,0 +1,50 @@
+---
+import { EMAIL, GITHUB, LINKEDIN } from '../../config';
+import { getLang, t } from '../../i18n/utils';
+import Button from '../Button.astro';
+import Icon from '../Icon.astro';
+
+const tr = t(getLang(Astro.url));
+const link =
+  'inline-flex items-center gap-2 text-on-accent underline underline-offset-[5px] max-md:min-h-11';
+---
+
+<!-- The band keeps the same orange in both themes; its focus ring is dark so it stays visible on orange. -->
+<section id="contact" aria-labelledby="contact-title" data-reveal class="wrap pb-24 max-md:pb-14">
+  <div
+    data-testid="contact-band"
+    class="flex flex-wrap items-end justify-between gap-10 rounded-[16px] bg-accent p-16 text-on-accent max-md:flex-col max-md:items-stretch max-md:gap-[18px] max-md:rounded-[14px] max-md:px-[22px] max-md:py-7 [&_:focus-visible]:outline-[#0B0C0E]"
+  >
+    <div class="flex max-w-[40em] flex-col gap-4 max-md:contents">
+      <h2 id="contact-title" class="font-display t-contact text-on-accent max-md:text-[44px]">{tr('contact.title')}</h2>
+      <p class="text-[19px] leading-[1.5] text-on-accent max-md:text-[16.5px]">{tr('contact.text')}</p>
+    </div>
+    <div class="flex flex-col items-start gap-4 max-md:contents">
+      <div class="flex flex-wrap items-center gap-3 max-md:contents">
+        <Button href={`mailto:${EMAIL}`} variant="dark" class="max-md:w-full">
+          <Icon name="envelope-simple" />{tr('common.emailMe')}
+        </Button>
+        <button
+          type="button"
+          data-copy-email={EMAIL}
+          data-copied-label={tr('common.copied')}
+          aria-label={tr('common.copy')}
+          class="group mono inline-flex h-12 cursor-pointer items-center gap-[10px] rounded-[8px] border border-[rgba(11,12,14,.35)] bg-transparent px-4 text-[13px] text-on-accent max-md:w-full max-md:justify-between max-md:px-[14px] max-md:text-[12.5px]"
+        >
+          <span translate="no">{EMAIL}</span>
+          <Icon name="copy" class="group-data-[state=copied]:hidden" />
+          <Icon name="check" class="hidden group-data-[state=copied]:block" />
+        </button>
+      </div>
+      <div class="flex gap-6 font-semibold">
+        <a class={link} href={LINKEDIN}><Icon name="linkedin-logo" size={18} class="max-md:hidden" />{tr('common.linkedin')}</a>
+        <a class={link} href={GITHUB}><Icon name="github-logo" size={18} class="max-md:hidden" />{tr('common.github')}</a>
+      </div>
+    </div>
+  </div>
+  <p id="copy-status" class="sr-only" aria-live="polite"></p>
+</section>
+
+<script>
+  import '../../scripts/copy-email';
+</script>

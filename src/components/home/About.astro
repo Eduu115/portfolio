@@ -1,0 +1,49 @@
+---
+import { getLang, t } from '../../i18n/utils';
+import KeyValue from '../KeyValue.astro';
+
+const tr = t(getLang(Astro.url));
+---
+
+<!-- Below 1024 the two columns dissolve (display: contents) into one grid ordered by grid-template-areas. -->
+<section
+  id="about"
+  aria-labelledby="about-title"
+  data-reveal
+  class="wrap flex flex-wrap gap-x-20 gap-y-12 pb-28 max-lg:grid max-lg:gap-6 max-lg:[grid-template-areas:'h2'_'lead'_'stat'_'p1'_'p2'_'data'] max-md:pb-[72px]"
+>
+  <div class="flex min-w-0 flex-[5_1_360px] flex-col gap-10 max-lg:contents">
+    <h2 id="about-title" class="font-display t-h2 max-lg:text-[40px] max-lg:[grid-area:h2]">
+      {tr('home.about.title')}
+    </h2>
+    <div
+      class="flex flex-col gap-3 border-t-2 border-accent pt-7 max-lg:gap-[10px] max-lg:pt-[22px] max-lg:[grid-area:stat]"
+    >
+      <span class="font-display stat text-[96px] leading-[.9] tracking-[-.025em] text-accent-text max-lg:text-[64px]"
+        >{tr('home.about.stat')}</span
+      >
+      <p class="max-w-[22em] text-[19px] leading-[1.4] text-ink max-lg:text-[17px]">{tr('home.about.statLine')}</p>
+      <p class="max-w-[28em] text-[15px] leading-[1.55] max-lg:text-[14.5px]">{tr('home.about.statNote')}</p>
+    </div>
+  </div>
+
+  <div class="flex min-w-0 flex-[7_1_480px] flex-col gap-[22px] pt-[6px] max-lg:contents">
+    <p class="max-w-[30em] text-[24px] leading-[1.45] text-ink max-lg:text-[19px] max-lg:[grid-area:lead]">
+      {tr('home.about.lead')}
+    </p>
+    <p class="max-w-[36em] text-[18px] leading-[1.6] max-lg:text-[16.5px] max-lg:[grid-area:p1]">
+      {tr('home.about.p1')}
+    </p>
+    <p class="max-w-[36em] text-[18px] leading-[1.6] max-lg:text-[16.5px] max-lg:[grid-area:p2]">
+      {tr('home.about.p2')}
+    </p>
+    <KeyValue
+      class="mt-[10px] max-w-[36em] border-t border-hairline pt-6 max-lg:mt-0 max-lg:grid-cols-[72px_minmax(0,1fr)] max-lg:gap-x-[14px] max-lg:pt-[18px] max-lg:text-[15px] max-lg:leading-[1.55] max-lg:[grid-area:data]"
+      items={[
+        { k: tr('home.about.k.based'), v: tr('home.about.v.based') },
+        { k: tr('home.about.k.speaks'), v: tr('home.about.v.speaks') },
+        { k: tr('home.about.k.studying'), v: tr('home.about.v.studying') },
+      ]}
+    />
+  </div>
+</section>

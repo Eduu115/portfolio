@@ -1,0 +1,55 @@
+---
+import { getLang, t } from '../../i18n/utils';
+
+const tr = t(getLang(Astro.url));
+const steps = [
+  ['nginx gateway', tr('rail.s1'), '0s'],
+  ['submission-service', tr('rail.s2'), '1.15s'],
+  ['sandbox-service', tr('rail.s3'), '2.16s'],
+  ['testing-service', tr('rail.s4'), '3.17s'],
+  ['ai-review-service', tr('rail.s5'), '4.18s'],
+  ['leaderboard + notifications', tr('rail.s6'), '5.18s'],
+];
+---
+
+<figure aria-labelledby="rail-caption" class="rounded-[10px] border border-hairline bg-canvas">
+  <div class="flex items-center justify-between gap-3 border-b border-hairline px-5 py-4 max-md:items-stretch max-md:gap-0 max-md:px-4 max-md:py-[14px]">
+    <span class="mono text-[12px] text-ink max-md:text-[11.5px]" translate="no">api-arena / submission flow</span>
+    <span class="mono text-[12px] text-muted max-md:text-[11.5px]" translate="no">async</span>
+  </div>
+  <div class="relative px-5 py-3 max-md:px-4">
+    <div aria-hidden="true" class="absolute top-[44px] left-[31px] h-[320px] w-[2px] bg-hairline-strong max-md:left-[27px]">
+    </div>
+    <div
+      aria-hidden="true"
+      class="pulse absolute top-[39px] left-[26px] size-3 rounded-full bg-accent [box-shadow:0_0_0_5px_var(--accent-soft)] max-md:left-[22px]"
+    >
+    </div>
+    <ol>
+      {
+        steps.map(([name, desc, delay]) => (
+          <li class="grid h-16 grid-cols-[24px_minmax(0,1fr)] items-center gap-x-4 max-md:gap-x-3">
+            <span
+              aria-hidden="true"
+              data-testid="rail-node"
+              class="node-lit relative z-[1] size-3 justify-self-center rounded-full border-2 border-hairline-strong bg-surface-1"
+              style={`animation-delay: ${delay}`}
+            />
+            <span class="flex flex-col gap-[2px] max-md:gap-px">
+              <span class="mono text-[13px] text-ink max-md:text-[12px]" translate="no">
+                {name}
+              </span>
+              <span class="text-[14px] leading-[1.4] max-md:text-[13.5px]">{desc}</span>
+            </span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+  <figcaption
+    id="rail-caption"
+    class="mono border-t border-hairline px-5 py-[14px] text-[12px] text-muted max-md:px-4 max-md:py-3 max-md:text-[11.5px]"
+  >
+    {tr('rail.caption')}
+  </figcaption>
+</figure>

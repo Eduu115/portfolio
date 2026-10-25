@@ -1,0 +1,152 @@
+---
+import { Picture } from 'astro:assets';
+import dashboard from '../../assets/savetowin-dashboard.jpg';
+import { LINKS } from '../../config';
+import { getLang, t } from '../../i18n/utils';
+import ExternalLink from '../ExternalLink.astro';
+import KeyValue from '../KeyValue.astro';
+import Tag from '../Tag.astro';
+
+const tr = t(getLang(Astro.url));
+const runs = (['run1', 'run2', 'run3', 'run4', 'run5', 'run6'] as const).map((r) => tr(`more.server.${r}`));
+const deploys = (['d1', 'd2', 'd3', 'd4', 'd5'] as const).map((d) => tr(`more.server.${d}`));
+const h3 = 'font-display t-h3 max-md:text-[32px] max-md:tracking-normal';
+const text = 'text-[16px] leading-[1.55] max-md:text-[15.5px]';
+---
+
+<!-- Below 1024 the card headers dissolve (display: contents) so links move under the text, as in the mobile artboard. -->
+<section aria-labelledby="more-title" data-reveal class="wrap flex flex-col gap-10 pb-28 max-md:gap-5 max-md:pb-[72px]">
+  <h2 id="more-title" class="font-display t-h2 max-md:text-[40px]">{tr('more.title')}</h2>
+
+  <div class="grid grid-cols-12 gap-6 max-lg:grid-cols-1 max-lg:gap-5">
+    <article
+      aria-labelledby="srv-title"
+      class="card dots col-span-5 row-span-2 flex flex-col gap-7 p-9 max-lg:col-span-1 max-lg:row-span-1 max-md:gap-[22px] max-md:p-6"
+    >
+      <div class="flex flex-col gap-3 max-md:gap-[10px]">
+        <h3 id="srv-title" class={h3}>{tr('more.server.title')}</h3>
+        <p class={text}>{tr('more.server.text')}</p>
+      </div>
+      <div class="flex flex-col gap-3 max-md:gap-[10px]">
+        <span class="label">{tr('more.server.runsKey')}</span>
+        <ul class="flex flex-wrap gap-2 max-md:gap-[6px]">
+          {
+            runs.map((r, i) => (
+              <Tag as="li" accent={i === runs.length - 1} translate={i < 2 ? 'no' : undefined}>
+                {r}
+              </Tag>
+            ))
+          }
+        </ul>
+      </div>
+      <div class="flex flex-col gap-3 max-md:gap-[10px]">
+        <span class="label">{tr('more.server.deployKey')}</span>
+        <ol
+          class="relative flex flex-col gap-2 before:absolute before:top-5 before:bottom-5 before:left-[9px] before:w-[2px] before:bg-hairline-strong before:content-['']"
+        >
+          {
+            deploys.map((d, i) => (
+              <li class="grid min-h-10 grid-cols-[20px_minmax(0,1fr)] items-center gap-x-[14px] max-md:min-h-0 max-md:gap-x-3">
+                <span
+                  aria-hidden="true"
+                  class:list={[
+                    'relative z-[1] size-[10px] justify-self-center rounded-[2px]',
+                    i === 0 ? 'bg-accent' : 'border-2 border-hairline-strong bg-surface-1',
+                  ]}
+                />
+                <span class="mono justify-self-start rounded-[6px] border border-hairline-strong bg-canvas px-3 py-2 text-[13px] text-ink max-md:px-[10px] max-md:text-[12px]">
+                  {d}
+                </span>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+      <KeyValue
+        class="mt-auto border-t border-hairline pt-6 max-md:pt-[18px]"
+        items={[
+          { k: tr('more.server.k.access'), v: tr('more.server.v.access') },
+          { k: tr('more.server.k.backups'), v: tr('more.server.v.backups') },
+        ]}
+      />
+    </article>
+
+    <article
+      aria-labelledby="stw-title"
+      class="card col-span-7 flex flex-col gap-6 overflow-hidden px-9 pt-9 max-lg:col-span-1 max-md:gap-4 max-md:px-6 max-md:pt-6"
+    >
+      <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-3 max-lg:contents">
+        <div class="flex flex-col gap-[10px] max-lg:contents">
+          <h3 id="stw-title" class={h3} translate="no">saveToWin</h3>
+          <p class:list={[text, 'max-w-[30em]']}>{tr('more.stw.text')}</p>
+        </div>
+        <div class="flex gap-5 pt-[6px] max-lg:order-1 max-lg:pt-0">
+          <ExternalLink href={LINKS.saveToWin}><span translate="no">savetowin.app</span></ExternalLink>
+          <ExternalLink href={LINKS.saveToWinRepo}>{tr('common.github')}</ExternalLink>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-2 max-md:gap-[6px]">
+        <Tag accent>{tr('more.stw.tag')}</Tag>
+        <Tag>AGPL-3.0</Tag>
+      </div>
+      <div class="zoom h-[248px] rounded-[8px_8px_0_0] border border-b-0 border-hairline max-lg:order-2 max-md:h-[180px]">
+        <Picture
+          src={dashboard}
+          formats={['avif', 'webp']}
+          widths={[400, 720, 1440]}
+          sizes="(min-width: 1024px) 720px, 100vw"
+          alt={tr('more.stw.shotAlt')}
+          loading="lazy"
+          decoding="async"
+          class="block w-full"
+        />
+      </div>
+    </article>
+
+    <article
+      aria-labelledby="gub-title"
+      class="card col-span-7 flex flex-col gap-5 p-9 max-lg:col-span-1 max-md:gap-[14px] max-md:p-6"
+    >
+      <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-3 max-lg:contents">
+        <div class="flex flex-col gap-[10px] max-lg:contents">
+          <span class="mono text-[12px] text-accent-text max-md:text-[11.5px]">{tr('more.gubia.label')}</span>
+          <h3 id="gub-title" class={h3} translate="no">Gubia Digital</h3>
+        </div>
+        <ExternalLink href={LINKS.gubia} class="pt-[6px] max-lg:order-1 max-lg:pt-0"
+          ><span translate="no">gubia.es</span></ExternalLink
+        >
+      </div>
+      <p class:list={[text, 'max-w-[40em]']}>{tr('more.gubia.text')}</p>
+      <KeyValue
+        items={[
+          { k: tr('more.gubia.k.stack'), v: tr('more.gubia.v.stack') },
+          { k: tr('more.gubia.k.runs'), v: tr('more.gubia.v.runs') },
+        ]}
+      />
+    </article>
+  </div>
+
+  <div class="flex flex-col gap-5 pt-4 max-md:gap-4 max-md:pt-3">
+    <h3 class="text-[15px] font-semibold text-muted">{tr('more.also.title')}</h3>
+    <ul class="grid grid-cols-[repeat(auto-fit,minmax(min(420px,100%),1fr))] gap-x-10 gap-y-6 max-md:flex max-md:flex-col max-md:gap-4">
+      {
+        [
+          { name: 'Eventbook', href: LINKS.eventbookRepo, text: tr('more.also.eventbook') },
+          { name: tr('more.also.agent.title'), href: LINKS.agentRepo, text: tr('more.also.agent') },
+        ].map((item) => (
+          <li class="flex flex-col gap-2 border-t border-hairline pt-5 max-md:gap-[6px] max-md:pt-4">
+            <div class="flex items-baseline justify-between gap-4 max-md:items-center max-md:gap-0">
+              <span class="text-[20px] font-[650] text-ink max-md:text-[19px]" translate={item.name === 'Eventbook' ? 'no' : undefined}>
+                {item.name}
+              </span>
+              <ExternalLink href={item.href} iconSize={12} iconClass="max-md:hidden" class="text-[14px]">
+                {tr('common.github')}
+              </ExternalLink>
+            </div>
+            <p class="text-[15px] leading-[1.55]">{item.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

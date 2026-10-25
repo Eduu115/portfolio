@@ -4,10 +4,11 @@ import Icon from './Icon.astro';
 interface Props {
   href: string;
   iconSize?: number;
+  iconClass?: string;
   class?: string;
 }
 
-const { href, iconSize = 14, class: className } = Astro.props;
+const { href, iconSize = 14, iconClass, class: className } = Astro.props;
 ---
 
 <a
@@ -19,6 +20,9 @@ const { href, iconSize = 14, class: className } = Astro.props;
   ><slot /><Icon
     name="arrow-up-right"
     size={iconSize}
-    class="transition-transform duration-200 ease-out-expo motion-safe:group-hover:[transform:translate(2px,-2px)]"
+    class:list={[
+      'transition-transform duration-200 ease-out-expo motion-safe:group-hover:[transform:translate(2px,-2px)]',
+      iconClass,
+    ]}
   /></a
 >

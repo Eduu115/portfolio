@@ -1,0 +1,93 @@
+---
+import { Picture } from 'astro:assets';
+import landing from '../../assets/api-arena-landing.jpg';
+import { LINKS } from '../../config';
+import { getLang, localizePath, t } from '../../i18n/utils';
+import Button from '../Button.astro';
+import ExternalLink from '../ExternalLink.astro';
+import Icon from '../Icon.astro';
+import KeyValue from '../KeyValue.astro';
+import PipelineRail from './PipelineRail.astro';
+
+const lang = getLang(Astro.url);
+const tr = t(lang);
+const highlights = (['h1', 'h2', 'h3', 'h4'] as const).map((h) => ({
+  k: tr(`home.work.aa.${h}.k`),
+  v: tr(`home.work.aa.${h}.v`),
+}));
+---
+
+<!-- Below 1024 the body columns dissolve (display: contents) and reorder: rail, screenshot, facts, award. -->
+<article aria-labelledby="aa-title" class="card flex flex-col gap-10 p-10 max-md:gap-[22px] max-md:p-6">
+  <div
+    class="flex flex-wrap items-end justify-between gap-x-8 gap-y-4 max-md:flex-col max-md:items-start max-md:gap-[10px]"
+  >
+    <div class="flex flex-col gap-3 max-md:contents">
+      <h3 id="aa-title" class="font-display t-card-xl max-md:text-[44px]" translate="no">API Arena</h3>
+      <p class="max-w-[40em] text-[19px] leading-[1.5] text-body max-md:text-[17px]">{tr('home.work.aa.lead')}</p>
+    </div>
+    <div class="flex gap-6 pb-[6px] max-md:gap-5 max-md:pb-0">
+      <ExternalLink href={LINKS.apiArena}><span translate="no">apiarena.net</span></ExternalLink>
+      <ExternalLink href={LINKS.apiArenaRepo}>{tr('common.github')}</ExternalLink>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap gap-10 max-lg:flex-col max-lg:flex-nowrap max-md:gap-[22px]">
+    <div class="flex min-w-0 flex-[5_1_380px] flex-col gap-6 max-lg:contents">
+      <div class="max-lg:order-1"><PipelineRail /></div>
+      <div
+        class="flex items-start gap-[14px] rounded-[8px] border border-hairline bg-surface-2 px-5 py-[18px] max-lg:order-4 max-md:gap-3 max-md:p-4"
+      >
+        <Icon name="medal" size={22} class="mt-px shrink-0 text-accent-text max-md:mt-[2px] max-md:size-5" />
+        <p class="text-[15px] leading-[1.5] text-ink max-md:text-[14.5px]">
+          {tr('home.work.aa.award.before')}<strong class="font-[650]">{tr('home.work.aa.award.strong')}</strong>{
+            tr('home.work.aa.award.after')
+          }
+        </p>
+      </div>
+    </div>
+    <div class="flex min-w-0 flex-[7_1_520px] flex-col gap-8 max-lg:contents">
+      <div class="zoom max-lg:order-2">
+        <Picture
+          src={landing}
+          formats={['avif', 'webp']}
+          widths={[400, 680, 1360]}
+          sizes="(min-width: 1086px) 680px, (min-width: 768px) calc(100vw - 146px), calc(100vw - 90px)"
+          alt={tr('home.work.aa.shotAlt')}
+          loading="lazy"
+          decoding="async"
+          class="block w-full rounded-[8px] border border-hairline"
+        />
+      </div>
+      <KeyValue
+        class="max-lg:order-3"
+        items={[
+          { k: tr('home.work.aa.k.role'), v: tr('home.work.aa.v.role'), ink: true },
+          { k: tr('home.work.aa.k.period'), v: tr('home.work.aa.v.period'), nums: true },
+          { k: tr('home.work.aa.k.stack'), v: tr('home.work.aa.v.stack') },
+          { k: tr('home.work.aa.k.ops'), v: tr('home.work.aa.v.ops') },
+        ]}
+      />
+    </div>
+  </div>
+
+  <ul
+    class="grid grid-cols-[repeat(auto-fit,minmax(min(240px,100%),1fr))] gap-x-10 gap-y-7 border-t border-hairline pt-8 max-md:flex max-md:flex-col max-md:gap-[18px] max-md:pt-[22px]"
+  >
+    {
+      highlights.map(({ k, v }) => (
+        <li class="flex flex-col gap-[6px] max-md:gap-1">
+          <span class="mono text-[12px] text-accent-text max-md:text-[11.5px]">{k}</span>
+          <span class="text-[15px] leading-[1.55] max-md:leading-[1.5]">{v}</span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="flex flex-wrap items-center justify-between gap-4 pt-1 max-md:pt-0">
+    <p class="mono text-[12px] text-muted max-md:hidden">{tr('home.work.aa.caseCaption')}</p>
+    <Button href={localizePath('/work/api-arena', lang)} variant="secondary" class="max-md:w-full">
+      {tr('home.work.aa.caseCta')}<Icon name="arrow-right" />
+    </Button>
+  </div>
+</article>

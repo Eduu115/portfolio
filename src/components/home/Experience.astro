@@ -1,0 +1,80 @@
+---
+import { getLang, t } from '../../i18n/utils';
+import KeyValue from '../KeyValue.astro';
+
+const tr = t(getLang(Astro.url));
+const roles = [
+  { id: 'gubia', bullets: null },
+  { id: 'deloitte', bullets: ['b1', 'b2', 'b3'] },
+  { id: 'atos', bullets: null },
+] as const;
+const stack = (['languages', 'backend', 'ops', 'testing', 'frontend', 'enterprise'] as const).map((s) => ({
+  k: tr(`exp.stack.k.${s}`),
+  v: tr(`exp.stack.v.${s}`),
+}));
+const degrees = (['bsc', 'daw'] as const).map((d) => ({
+  title: tr(`exp.edu.${d}`),
+  org: tr(`exp.edu.${d}.org`),
+  dates: tr(`exp.edu.${d}.dates`),
+}));
+const muted = 'text-[15px] font-semibold text-muted';
+---
+
+<section
+  id="experience"
+  aria-labelledby="exp-title"
+  data-reveal
+  class="wrap flex flex-wrap gap-x-16 gap-y-12 pb-28 max-lg:flex-col max-md:gap-6 max-md:pb-[72px]"
+>
+  <div class="flex min-w-0 flex-[8_1_560px] flex-col gap-10 max-lg:flex-none max-md:gap-6">
+    <h2 id="exp-title" class="font-display t-h2 max-md:text-[40px]">{tr('exp.title')}</h2>
+    <ol>
+      {
+        roles.map(({ id, bullets }) => (
+          <li class="grid grid-cols-[168px_minmax(0,1fr)] gap-x-8 border-t border-hairline py-7 last:border-b max-lg:flex max-lg:flex-col max-lg:gap-[6px] max-md:py-[22px]">
+            <span class="mono text-[13px] leading-[1.9] text-muted tabular-nums max-md:text-[12px] max-md:leading-[1.6]">
+              {tr(`exp.${id}.dates`)}
+            </span>
+            <div class="flex flex-col gap-2 max-lg:contents">
+              <h3 class="t-title-md max-md:text-[20px]">{tr(`exp.${id}.role`)}</h3>
+              <p class="text-[15px] text-muted max-md:text-[14.5px]">{tr(`exp.${id}.org`)}</p>
+              {bullets ? (
+                <ul class="bullets flex max-w-[60ch] flex-col gap-[6px] text-[16px] leading-[1.6] max-md:text-[15.5px] max-md:[&>li]:pl-[18px]">
+                  {bullets.map((b) => (
+                    <li>{tr(`exp.${id}.${b}`)}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p class="max-w-[60ch] text-[16px] leading-[1.6] max-md:text-[15.5px]">
+                  {tr(`exp.${id === 'gubia' ? 'gubia' : 'atos'}.text`)}
+                </p>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+
+  <aside class="flex min-w-0 flex-[4_1_320px] flex-col gap-8 pt-24 max-lg:flex-none max-lg:pt-0 max-md:gap-6">
+    <div class="card flex flex-col gap-5 p-7 max-md:gap-[18px] max-md:p-[22px]">
+      <h3 class={muted}>{tr('exp.edu.title')}</h3>
+      {
+        degrees.map((d, i) => (
+          <div class:list={['flex flex-col gap-1', { 'border-t border-hairline pt-5 max-md:pt-[18px]': i > 0 }]}>
+            <p class="text-[17px] leading-[1.35] font-[650] text-ink">{d.title}</p>
+            <p class="text-[15px]">{d.org}</p>
+            <p class="mono text-[12px] text-muted tabular-nums max-md:text-[11.5px]">{d.dates}</p>
+          </div>
+        ))
+      }
+    </div>
+    <div class="flex flex-col gap-4 max-md:gap-[14px] max-md:pt-2">
+      <h3 class={muted}>{tr('exp.stack.title')}</h3>
+      <KeyValue
+        class="grid-cols-[88px_minmax(0,1fr)] gap-y-3 text-[15px] leading-[1.5] max-md:grid-cols-[84px_minmax(0,1fr)] max-md:gap-y-[10px] max-md:leading-[1.55]"
+        items={stack}
+      />
+    </div>
+  </aside>
+</section>

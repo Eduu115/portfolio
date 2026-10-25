@@ -1,8 +1,26 @@
 ---
+import About from '../components/home/About.astro';
+import BugReports from '../components/home/BugReports.astro';
+import ContactBand from '../components/home/ContactBand.astro';
+import Experience from '../components/home/Experience.astro';
+import FlagshipCard from '../components/home/FlagshipCard.astro';
+import Hero from '../components/home/Hero.astro';
+import MoreWork from '../components/home/MoreWork.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { t } from '../i18n/utils';
 
 const tr = t('en');
 ---
 
-<BaseLayout title={tr('meta.home.title')} description={tr('meta.home.description')} />
+<BaseLayout title={tr('meta.home.title')} description={tr('meta.home.description')}>
+  <Hero />
+  <About />
+  <section id="work" aria-labelledby="work-title" data-reveal class="wrap flex flex-col gap-10 pb-28 max-md:gap-6 max-md:pb-[72px]">
+    <h2 id="work-title" class="font-display t-h2 max-md:text-[40px]">{tr('home.work.title')}</h2>
+    <FlagshipCard />
+  </section>
+  <BugReports />
+  <MoreWork />
+  <Experience />
+  <ContactBand />
+</BaseLayout>

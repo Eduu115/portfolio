@@ -2,9 +2,10 @@
 interface Props {
   accent?: boolean;
   as?: 'li' | 'span';
+  translate?: 'no';
 }
 
-const { accent = false, as: Tag = 'span' } = Astro.props;
+const { accent = false, as: Tag = 'span', translate } = Astro.props;
 ---
 
-<Tag class:list={['tag', { 'tag-accent': accent }]}><slot /></Tag>
+<Tag class:list={['tag', { 'tag-accent': accent }]} translate={translate}><slot /></Tag>
