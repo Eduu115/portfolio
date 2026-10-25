@@ -1,0 +1,28 @@
+---
+import { EMAIL, GITHUB, LINKEDIN } from '../config';
+import { getLang, t } from '../i18n/utils';
+
+const tr = t(getLang(Astro.url));
+const link =
+  'text-[14px] font-medium text-body no-underline transition-[color] duration-[180ms] ease-out-expo hover:text-ink pointer-coarse:inline-flex pointer-coarse:min-h-11 pointer-coarse:items-center';
+---
+
+<footer class="wrap pt-8 pb-8 max-md:pb-6">
+  <div
+    class="flex flex-wrap items-center justify-between gap-x-8 gap-y-4 border-t border-hairline pt-6 text-[14px] text-muted max-md:flex-col max-md:items-stretch max-md:gap-[10px] max-md:text-[13.5px]"
+  >
+    <p>© 2026 Eduardo Serrano Trenado</p>
+    <p>{tr('footer.built')}</p>
+    <div class="flex gap-5 max-md:hidden">
+      <a class={link} href={LINKEDIN}>{tr('common.linkedin')}</a>
+      <a class={link} href={GITHUB}>{tr('common.github')}</a>
+      <a class={link} href={`mailto:${EMAIL}`}>{tr('common.email')}</a>
+    </div>
+  </div>
+  <p
+    aria-hidden="true"
+    class="font-wide mt-[72px] overflow-hidden text-center text-[clamp(26px,6.4vw,92px)] leading-[.78] font-extrabold tracking-[-.01em] whitespace-nowrap text-hairline uppercase max-md:mt-10"
+  >
+    Eduardo Serrano
+  </p>
+</footer>

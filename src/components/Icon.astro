@@ -1,0 +1,44 @@
+---
+import arrowLeft from '@phosphor-icons/core/regular/arrow-left.svg?raw';
+import arrowRight from '@phosphor-icons/core/regular/arrow-right.svg?raw';
+import arrowUpRight from '@phosphor-icons/core/regular/arrow-up-right.svg?raw';
+import check from '@phosphor-icons/core/regular/check.svg?raw';
+import copy from '@phosphor-icons/core/regular/copy.svg?raw';
+import envelopeSimple from '@phosphor-icons/core/regular/envelope-simple.svg?raw';
+import fileText from '@phosphor-icons/core/regular/file-text.svg?raw';
+import githubLogo from '@phosphor-icons/core/regular/github-logo.svg?raw';
+import linkedinLogo from '@phosphor-icons/core/regular/linkedin-logo.svg?raw';
+import list from '@phosphor-icons/core/regular/list.svg?raw';
+import medal from '@phosphor-icons/core/regular/medal.svg?raw';
+import moon from '@phosphor-icons/core/regular/moon.svg?raw';
+import sun from '@phosphor-icons/core/regular/sun.svg?raw';
+import x from '@phosphor-icons/core/regular/x.svg?raw';
+
+const icons = {
+  'arrow-left': arrowLeft,
+  'arrow-right': arrowRight,
+  'arrow-up-right': arrowUpRight,
+  check,
+  copy,
+  'envelope-simple': envelopeSimple,
+  'file-text': fileText,
+  'github-logo': githubLogo,
+  'linkedin-logo': linkedinLogo,
+  list,
+  medal,
+  moon,
+  sun,
+  x,
+};
+
+interface Props {
+  name: keyof typeof icons;
+  size?: number;
+  class?: string;
+}
+
+const { name, size = 16, class: className } = Astro.props;
+const inner = icons[name].replace(/^<svg[^>]*>|<\/svg>\s*$/g, '');
+---
+
+<svg width={size} height={size} viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" class={className} set:html={inner} />

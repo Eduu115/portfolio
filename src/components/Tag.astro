@@ -1,0 +1,10 @@
+---
+interface Props {
+  accent?: boolean;
+  as?: 'li' | 'span';
+}
+
+const { accent = false, as: Tag = 'span' } = Astro.props;
+---
+
+<Tag class:list={['tag', { 'tag-accent': accent }]}><slot /></Tag>

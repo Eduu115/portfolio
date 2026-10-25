@@ -1,0 +1,20 @@
+---
+interface Props {
+  items: { k: string; v: string; ink?: boolean }[];
+  class?: string;
+  style?: string;
+}
+
+const { items, class: className, style } = Astro.props;
+---
+
+<dl class:list={['kv', className]} style={style}>
+  {
+    items.map(({ k, v, ink }) => (
+      <>
+        <dt class="label">{k}</dt>
+        <dd class:list={{ 'text-ink': ink }}>{v}</dd>
+      </>
+    ))
+  }
+</dl>

@@ -1,0 +1,11 @@
+---
+import { getLang, t } from '../i18n/utils';
+
+const tr = t(getLang(Astro.url));
+---
+
+<a
+  href="#main"
+  class="sr-only rounded-[8px] border border-hairline-strong bg-surface-1 text-[15px] leading-none font-semibold text-ink no-underline focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:inline-flex focus:h-12 focus:items-center focus:px-5"
+  >{tr('a11y.skip')}</a
+>

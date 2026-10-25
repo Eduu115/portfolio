@@ -1,0 +1,22 @@
+---
+import { getLang, t } from '../i18n/utils';
+import Icon from './Icon.astro';
+
+const tr = t(getLang(Astro.url));
+---
+
+<button
+  type="button"
+  data-theme-toggle
+  data-to-light={tr('theme.toLight')}
+  data-to-dark={tr('theme.toDark')}
+  aria-label={tr('theme.toLight')}
+  class="grid size-11 cursor-pointer place-items-center rounded-[8px] text-body transition-[color] duration-[180ms] ease-out-expo hover:text-ink"
+>
+  <Icon name="sun" size={18} class="[[data-theme=light]_&]:hidden" />
+  <Icon name="moon" size={18} class="hidden [[data-theme=light]_&]:block" />
+</button>
+
+<script>
+  import '../scripts/theme';
+</script>

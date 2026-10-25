@@ -1,0 +1,158 @@
+---
+import { EMAIL } from '../config';
+import { getLang, localizePath, pagePath, t } from '../i18n/utils';
+import Icon from './Icon.astro';
+import LangSwitch from './LangSwitch.astro';
+import ThemeToggle from './ThemeToggle.astro';
+
+const lang = getLang(Astro.url);
+const tr = t(lang);
+const home = localizePath('/', lang);
+const path = pagePath(Astro.url);
+const onHome = path === home;
+const inWork = path.startsWith(localizePath('/work', lang));
+const resume = `/cv/eduardo-serrano-cv-${lang}.pdf`;
+
+const links = [
+  { id: 'about', label: tr('nav.about') },
+  { id: 'work', label: tr('nav.work') },
+  { id: 'experience', label: tr('nav.experience') },
+  { id: 'contact', label: tr('nav.contact') },
+].map((l) => ({ ...l, href: `${onHome ? '' : home}#${l.id}`, current: inWork && l.id === 'work' }));
+
+const navLink =
+  'inline-flex min-h-11 items-center text-[14px] font-medium no-underline transition-[color] duration-[180ms] ease-out-expo hover:text-ink';
+---
+
+<header
+  class="sticky top-0 z-20 border-b border-hairline bg-[color-mix(in_srgb,var(--canvas)_86%,transparent)] backdrop-blur-[12px]"
+>
+  <nav
+    aria-label={tr('nav.primary')}
+    class="wrap flex h-[60px] items-center justify-between lg:h-16 lg:justify-start lg:gap-8"
+  >
+    <a href={home} class="flex shrink-0 items-center gap-[10px] text-ink no-underline pointer-coarse:min-h-11">
+      <span aria-hidden="true" class="block size-[10px] bg-accent"></span>
+      <span class="font-wide text-[13px] font-bold tracking-[.06em] uppercase">Eduardo Serrano</span>
+    </a>
+
+    <div class="ml-6 hidden items-center gap-7 lg:flex">
+      {
+        links.map((l) => (
+          <a
+            href={l.href}
+            aria-current={l.current ? 'page' : undefined}
+            class:list={[navLink, l.current ? 'text-ink' : 'text-body']}
+          >
+            {l.label}
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="ml-auto hidden items-center gap-2 lg:flex">
+      <a href={resume} class:list={[navLink, 'h-11 gap-2 px-3 text-body']}>
+        <Icon name="file-text" size={16} />{tr('nav.resume')}
+      </a>
+      <LangSwitch />
+      <ThemeToggle />
+    </div>
+
+    <button
+      type="button"
+      aria-label={tr('menu.open')}
+      aria-haspopup="dialog"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      class="-mr-[10px] grid size-11 cursor-pointer place-items-center rounded-[8px] text-ink lg:hidden"
+    >
+      <Icon name="list" size={22} />
+    </button>
+  </nav>
+</header>
+
+<dialog
+  id="mobile-menu"
+  aria-labelledby="mobile-menu-title"
+  class="fixed inset-0 m-0 h-full max-h-none w-full max-w-none overflow-y-auto border-0 bg-canvas p-0 text-body backdrop:bg-transparent"
+>
+  <div class="flex min-h-full flex-col">
+    <div class="wrap flex h-[60px] w-full shrink-0 items-center justify-between border-b border-hairline">
+      <span class="flex items-center gap-[10px] text-ink">
+        <span aria-hidden="true" class="block size-[10px] bg-accent"></span>
+        <span id="mobile-menu-title" class="font-wide text-[13px] font-bold tracking-[.06em] uppercase">Eduardo Serrano</span>
+      </span>
+      <button
+        type="button"
+        data-menu-close
+        aria-label={tr('menu.close')}
+        class="-mr-[10px] grid size-11 cursor-pointer place-items-center text-ink"
+      >
+        <Icon name="x" size={22} />
+      </button>
+    </div>
+
+    <nav aria-label={tr('nav.primary')} class="wrap w-full flex-1 pt-4">
+      <ul>
+        {
+          links.map((l) => (
+            <li>
+              <a
+                href={l.href}
+                aria-current={l.current ? 'page' : undefined}
+                class="font-display flex min-h-16 items-center justify-between border-b border-hairline text-[40px] leading-none tracking-[-.015em] no-underline"
+              >
+                {l.label}
+                <Icon name="arrow-right" size={22} class="text-muted" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a
+        href={resume}
+        class="flex min-h-14 items-center gap-[10px] border-b border-hairline text-[16px] font-medium text-body no-underline"
+      >
+        <Icon name="file-text" size={18} />{tr('nav.resumeMobile')}
+      </a>
+      <div class="flex min-h-16 items-center justify-between border-b border-hairline">
+        <span class="mono text-[12px] text-muted">{tr('menu.languageKey')}</span>
+        <LangSwitch size="menu" />
+      </div>
+      <div class="flex min-h-16 items-center justify-between border-b border-hairline">
+        <span class="mono text-[12px] text-muted">{tr('theme.key')}</span>
+        <div
+          role="group"
+          aria-label={tr('theme.label')}
+          class="mono flex h-10 rounded-[8px] border border-hairline p-[3px] text-[12px]"
+        >
+          {
+            (['system', 'dark', 'light'] as const).map((o) => (
+              <button
+                type="button"
+                data-theme-option={o}
+                aria-pressed={o === 'system' ? 'true' : 'false'}
+                class="flex cursor-pointer items-center rounded-[5px] px-3 text-muted aria-pressed:bg-surface-2 aria-pressed:text-ink"
+              >
+                {tr(`theme.${o}`)}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+    </nav>
+
+    <div class="wrap w-full pt-5 pb-8">
+      <a
+        href={`mailto:${EMAIL}`}
+        class="flex h-[52px] items-center justify-center gap-[10px] rounded-[8px] bg-accent text-[16px] leading-none font-semibold text-on-accent no-underline"
+      >
+        <Icon name="envelope-simple" size={16} />{tr('common.emailMe')}
+      </a>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  import '../scripts/mobile-menu';
+</script>

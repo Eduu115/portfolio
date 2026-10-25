@@ -1,0 +1,38 @@
+---
+import { altPath, getLang, langs, t } from '../i18n/utils';
+
+interface Props {
+  /** `menu` is the taller variant inside the mobile menu. */
+  size?: 'header' | 'menu';
+}
+
+const { size = 'header' } = Astro.props;
+const lang = getLang(Astro.url);
+const tr = t(lang);
+---
+
+<div
+  role="group"
+  aria-label={tr('lang.label')}
+  class:list={[
+    'mono flex rounded-[8px] border border-hairline p-[3px] text-[12px]',
+    size === 'menu' ? 'h-10' : 'h-9 items-center',
+  ]}
+>
+  {
+    langs.map((l) => (
+      <a
+        href={altPath(Astro.url, l)}
+        lang={l}
+        aria-current={l === lang ? 'true' : undefined}
+        class:list={[
+          'flex items-center rounded-[5px] no-underline',
+          size === 'menu' ? 'px-[14px]' : 'h-7 px-[10px]',
+          l === lang ? 'bg-surface-2 text-ink' : 'text-muted',
+        ]}
+      >
+        {l.toUpperCase()}
+      </a>
+    ))
+  }
+</div>
