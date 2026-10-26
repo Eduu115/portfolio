@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: process.env.SITE_URL ?? 'https://example.invalid', // P1
+  site: process.env.SITE_URL ?? 'https://eduardoserranotrenado.com',
   output: 'static',
   trailingSlash: 'never',
   build: { format: 'file' },

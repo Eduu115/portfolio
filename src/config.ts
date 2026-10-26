@@ -1,4 +1,4 @@
-export const SITE_URL = import.meta.env?.SITE ?? 'https://example.invalid';
+export const SITE_URL = import.meta.env?.SITE ?? 'https://eduardoserranotrenado.com';
 export const EMAIL = 'serranotrenado.e@gmail.com';
 export const LINKEDIN = 'https://www.linkedin.com/in/eduardo-serrano-trenado';
 export const GITHUB = 'https://github.com/Eduu115';
