@@ -1,0 +1,70 @@
+name: deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+env:
+  SITE_URL: https://eduardoserranotrenado.com
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx astro check
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test
+        env:
+          BANNED_TERMS: ${{ secrets.BANNED_TERMS }}
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: test-results
+          path: test-results/
+
+  deploy:
+    needs: test
+    runs-on: [self-hosted, linux, portfolio]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build image
+        run: |
+          echo "TAG=${GITHUB_SHA::7}" >> "$GITHUB_ENV"
+          echo "PREV=$(docker inspect portfolio --format '{{.Config.Image}}' 2>/dev/null || true)" >> "$GITHUB_ENV"
+          docker build -f deploy/Dockerfile --build-arg SITE_URL="$SITE_URL" -t "portfolio:${GITHUB_SHA::7}" .
+      - name: Deploy to ~/apps/portfolio
+        run: |
+          mkdir -p "$HOME/apps/portfolio"
+          cp deploy/docker-compose.yml "$HOME/apps/portfolio/docker-compose.yml"
+          cd "$HOME/apps/portfolio"
+          TAG="$TAG" docker compose -p portfolio up -d
+          # Nginx Proxy Manager reaches the site by container name on this network.
+          docker network connect portfolio_default nginx-proxy 2>/dev/null || true
+      - name: Check
+        run: |
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:3020/healthz && break; sleep 1; done
+          curl -fsS http://127.0.0.1:3020/healthz
+          for path in / /es /work/api-arena; do
+            curl -fsS "http://127.0.0.1:3020$path" | grep -q "Eduardo Serrano"
+          done
+      - name: Roll back
+        if: failure() && env.PREV != ''
+        run: |
+          cd "$HOME/apps/portfolio"
+          TAG="${PREV#portfolio:}" docker compose -p portfolio up -d
+      - name: Keep the 3 newest images
+        if: success()
+        run: |
+          docker images portfolio --format '{{.CreatedAt}}\t{{.Repository}}:{{.Tag}}' | sort -r | tail -n +4 | cut -f2 | xargs -r docker rmi || true

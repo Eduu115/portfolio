@@ -1,0 +1,10 @@
+services:
+  portfolio:
+    image: portfolio:${TAG:-latest}
+    container_name: portfolio
+    restart: unless-stopped
+    ports: ["127.0.0.1:3020:8080"]
+    read_only: true
+    tmpfs: [/var/cache/nginx, /var/run, /tmp]
+    mem_limit: 64m
+    security_opt: ["no-new-privileges:true"]

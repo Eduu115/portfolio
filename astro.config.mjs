@@ -9,6 +9,13 @@ export default defineConfig({
   trailingSlash: 'never',
   build: { format: 'file' },
   compressHTML: true,
+  // CSP with hashes for every inline script (plan 16.2). frame-ancestors cannot live in a <meta>, so nginx sends it.
+  security: {
+    csp: {
+      directives: ["default-src 'self'", "img-src 'self' data:", "font-src 'self'", "connect-src 'self'", "base-uri 'self'", "form-action 'none'"],
+      styleDirective: { resources: ["'self'", "'unsafe-inline'"] },
+    },
+  },
   i18n: {
     locales: ['en', 'es'],
     defaultLocale: 'en',

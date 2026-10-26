@@ -1,0 +1,10 @@
+node_modules
+dist
+.astro
+.git
+.claude
+.env*
+out
+test-results
+playwright-report
+docs/design/reference
