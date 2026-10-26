@@ -1,0 +1,24 @@
+---
+import { EMAIL } from '../../config';
+import { getLang, t } from '../../i18n/utils';
+import Button from '../Button.astro';
+import Icon from '../Icon.astro';
+
+const tr = t(getLang(Astro.url));
+---
+
+<section aria-labelledby="cta-title" data-reveal class="wrap pb-24 max-md:pb-14">
+  <div
+    class="flex flex-wrap items-center justify-between gap-8 rounded-[16px] bg-accent px-16 py-14 text-on-accent max-md:flex-col max-md:items-stretch max-md:gap-5 max-md:rounded-[14px] max-md:px-[22px] max-md:py-7 [&_:focus-visible]:outline-[#0B0C0E]"
+  >
+    <h2
+      id="cta-title"
+      class="font-display max-w-[14em] text-[56px] leading-[.95] tracking-[-.02em] text-on-accent max-md:max-w-none max-md:text-[40px] max-md:tracking-normal"
+    >
+      {tr('case.cta.title')}
+    </h2>
+    <Button href={`mailto:${EMAIL}`} variant="dark" class="max-md:w-full">
+      <Icon name="envelope-simple" class="max-md:hidden" />{tr('common.emailMe')}
+    </Button>
+  </div>
+</section>

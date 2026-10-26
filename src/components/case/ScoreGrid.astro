@@ -1,0 +1,39 @@
+---
+import { getLang, t } from '../../i18n/utils';
+
+const tr = t(getLang(Astro.url));
+const scores = [
+  [300, tr('case.score.functional')],
+  [300, tr('case.score.performance')],
+  [200, tr('case.score.design')],
+  [200, tr('case.score.review')],
+] as const;
+---
+
+<section
+  aria-labelledby="what-title"
+  data-reveal
+  class="wrap flex flex-wrap gap-x-20 gap-y-12 pb-28 max-md:flex-col max-md:gap-[18px] max-md:pb-[72px]"
+>
+  <div class="flex min-w-0 flex-[6_1_480px] flex-col gap-6 max-md:contents">
+    <h2 id="what-title" class="font-display t-h2 max-md:text-[40px] max-md:tracking-normal">{tr('case.what.title')}</h2>
+    <div class="flex max-w-[36em] flex-col gap-4 text-[18px] leading-[1.6] max-md:contents">
+      <p class="max-md:text-[16.5px]">{tr('case.what.p1')}</p>
+      <p class="max-md:text-[16.5px]">{tr('case.what.p2')}</p>
+    </div>
+  </div>
+  <div class="flex min-w-0 flex-[5_1_380px] flex-col gap-4 max-md:contents">
+    <h3 class="text-[15px] font-semibold text-muted max-md:pt-2 max-md:text-[14px]">{tr('case.score.title')}</h3>
+    <ul class="grid grid-cols-2 gap-px overflow-hidden rounded-[12px] border border-hairline bg-hairline">
+      {
+        scores.map(([points, label]) => (
+          <li class="flex flex-col gap-[6px] bg-surface-1 p-6 max-md:gap-1 max-md:p-[18px]">
+            <span class="font-display text-[44px] leading-none tabular-nums max-md:text-[36px]">{points}</span>
+            <span class="text-[15px] max-md:text-[14px]">{label}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="mono text-[12px] text-muted max-md:text-[11.5px]">{tr('case.score.max')}</p>
+  </div>
+</section>

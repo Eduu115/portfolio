@@ -1,0 +1,86 @@
+---
+import { getLang, t } from '../../i18n/utils';
+import Tag from '../Tag.astro';
+
+const tr = t(getLang(Astro.url));
+const lanes = [
+  {
+    label: tr('case.lane.edge'),
+    services: [
+      ['nginx gateway', '', tr('case.svc.gateway')],
+      ['frontend', '', tr('case.svc.frontend')],
+    ],
+  },
+  {
+    label: tr('case.lane.core'),
+    services: [
+      ['auth-service', ':8081', tr('case.svc.auth')],
+      ['challenge-service', ':8082', tr('case.svc.challenge')],
+    ],
+  },
+  {
+    label: tr('case.lane.pipeline'),
+    services: [
+      ['submission-service', ':8083', tr('case.svc.submission')],
+      ['sandbox-service', ':8084', tr('case.svc.sandbox')],
+      ['testing-service', ':8085', tr('case.svc.testing')],
+      ['ai-review-service', ':8086', tr('case.svc.review')],
+    ],
+  },
+  {
+    label: tr('case.lane.results'),
+    services: [
+      ['leaderboard-service', ':8087', tr('case.svc.leaderboard')],
+      ['notification-service', ':8090', tr('case.svc.notification')],
+      ['metrics-service', ':8089', tr('case.svc.metrics')],
+    ],
+  },
+];
+const dataOps = ['PostgreSQL 16', 'Redis 7', 'Kafka', 'Docker Compose', 'Prometheus', 'Grafana', 'Alertmanager', 'GitHub Actions'];
+---
+
+<section aria-labelledby="arch-title" data-reveal class="wrap flex flex-col gap-10 pb-28 max-md:gap-[18px] max-md:pb-[72px]">
+  <div class="flex flex-col gap-4 max-md:contents">
+    <h2 id="arch-title" class="font-display t-h2 max-md:text-[40px] max-md:tracking-normal">{tr('case.arch.title')}</h2>
+    <p class="max-w-[40em] text-[18px] leading-[1.6] max-md:text-[16.5px]">{tr('case.arch.lead')}</p>
+  </div>
+  <div class="flex flex-col gap-7">
+    {
+      lanes.map((lane) => (
+        <div class="grid grid-cols-[140px_minmax(0,1fr)] items-start gap-6 max-md:flex max-md:flex-col max-md:items-stretch max-md:gap-[10px]">
+          <span class="label pt-4 max-md:pt-0">{lane.label}</span>
+          <ul class="grid grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))] gap-3 max-md:flex max-md:flex-col max-md:gap-2">
+            {lane.services.map(([name, port, desc]) => (
+              <li
+                class:list={[
+                  'flex flex-col gap-[6px] rounded-[8px] border bg-surface-1 p-4 transition-[border-color] duration-200 ease-out-expo hover:border-accent-line max-md:gap-1 max-md:p-[14px]',
+                  name === 'submission-service' ? 'border-accent-line' : 'border-hairline',
+                ]}
+              >
+                <div class="flex justify-between gap-2 max-md:gap-0">
+                  <span class="mono text-[13px] text-ink max-md:text-[12.5px]" translate="no">
+                    {name}
+                  </span>
+                  {port && <span class="mono text-[11.5px] text-muted max-md:text-[11px]">{port}</span>}
+                </div>
+                <span class="text-[14px] leading-[1.45]">{desc}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+    <div class="grid grid-cols-[140px_minmax(0,1fr)] items-center gap-6 border-t border-hairline pt-7 max-md:flex max-md:flex-col max-md:items-start max-md:gap-[10px]">
+      <span class="label">{tr('case.lane.data')}</span>
+      <ul class="flex flex-wrap gap-2">
+        {
+          dataOps.map((d) => (
+            <Tag as="li" translate="no">
+              {d}
+            </Tag>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

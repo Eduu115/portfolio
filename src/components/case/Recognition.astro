@@ -1,0 +1,19 @@
+---
+import { getLang, t } from '../../i18n/utils';
+import Icon from '../Icon.astro';
+
+const tr = t(getLang(Astro.url));
+---
+
+<section data-reveal class="wrap pb-28 max-md:pb-[72px]">
+  <div
+    class="flex flex-wrap items-center gap-x-12 gap-y-6 border-y border-hairline py-10 max-md:flex-col max-md:items-start max-md:gap-4 max-md:py-7"
+  >
+    <Icon name="medal" size={40} class="shrink-0 text-accent-text max-md:size-8" />
+    <p
+      class="font-display flex-[1_1_600px] text-[36px] leading-[1.1] tracking-[-.01em] max-md:flex-none max-md:text-[26px] max-md:leading-[1.12] max-md:tracking-normal"
+    >
+      {tr('case.recognition')}
+    </p>
+  </div>
+</section>

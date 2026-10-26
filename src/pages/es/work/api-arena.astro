@@ -1,0 +1,72 @@
+---
+import { Picture } from 'astro:assets';
+import landing from '../../../assets/api-arena-landing.jpg';
+import CaseHeader from '../../../components/case/CaseHeader.astro';
+import CtaBand from '../../../components/case/CtaBand.astro';
+import OpsCards from '../../../components/case/OpsCards.astro';
+import PipelineExplorer, { type ExplorerCopy } from '../../../components/case/PipelineExplorer';
+import Recognition from '../../../components/case/Recognition.astro';
+import ScoreGrid from '../../../components/case/ScoreGrid.astro';
+import ServiceLanes from '../../../components/case/ServiceLanes.astro';
+import BugReports from '../../../components/home/BugReports.astro';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { t } from '../../../i18n/utils';
+
+const tr = t('es');
+const copy: ExplorerCopy = {
+  title: tr('case.flow.title'),
+  intro: tr('case.flow.intro'),
+  groupLabel: tr('case.flow.group'),
+  tabs: { happy: tr('case.flow.tab.happy'), consumer: tr('case.flow.tab.consumer'), sandbox: tr('case.flow.tab.sandbox') },
+  bracket: tr('case.flow.bracket'),
+  hint: tr('case.flow.hint'),
+  nodes: {
+    submission: ['submission-service', tr('case.flow.n.submission')],
+    sandbox: ['sandbox-service', tr('case.flow.n.sandbox')],
+    sandboxFail: tr('case.flow.n.sandboxFail'),
+    testing: ['testing-service', tr('case.flow.n.testing')],
+    review: ['ai-review-service', tr('case.flow.n.review')],
+    notifications: 'notifications',
+    leaderboard: 'leaderboard',
+    leaderboardFail: tr('case.flow.n.leaderboardFail'),
+    fallback: [tr('case.flow.n.fallback'), tr('case.flow.n.fallbackDesc')],
+    retry: tr('case.flow.n.retry'),
+    dlt: [tr('case.flow.n.dlt'), tr('case.flow.n.dltName')],
+  },
+  narrative: {
+    happy: { title: tr('case.flow.happy.title'), body: tr('case.flow.happy.body') },
+    consumer: { title: tr('case.flow.consumer.title'), body: tr('case.flow.consumer.body') },
+    sandbox: { title: tr('case.flow.sandbox.title'), body: tr('case.flow.sandbox.body') },
+  },
+  facts: [
+    [tr('case.flow.k.delivery'), tr('case.flow.v.delivery')],
+    [tr('case.flow.k.duplicates'), tr('case.flow.v.duplicates')],
+    [tr('case.flow.k.failures'), tr('case.flow.v.failures')],
+  ],
+};
+---
+
+<BaseLayout title={tr('meta.case.title')} description={tr('meta.case.description')}>
+  <CaseHeader />
+  <section class="wrap pb-28 max-md:pb-[72px]">
+    <Picture
+      src={landing}
+      formats={['avif', 'webp']}
+      widths={[400, 800, 1280, 1800]}
+      sizes="(min-width: 1344px) 1280px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 40px)"
+      alt={tr('case.shotAlt')}
+      loading="lazy"
+      decoding="async"
+      class="block w-full rounded-[12px] border border-hairline max-md:rounded-[10px]"
+    />
+  </section>
+  <ScoreGrid />
+  <ServiceLanes />
+  <section aria-labelledby="flow-title" data-reveal class="wrap pb-28 max-md:pb-[72px]">
+    <PipelineExplorer client:visible copy={copy} />
+  </section>
+  <BugReports withLesson />
+  <OpsCards />
+  <Recognition />
+  <CtaBand />
+</BaseLayout>

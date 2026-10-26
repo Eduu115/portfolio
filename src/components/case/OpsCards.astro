@@ -1,0 +1,28 @@
+---
+import { getLang, t } from '../../i18n/utils';
+
+const tr = t(getLang(Astro.url));
+const cards = [
+  { title: tr('case.ops.sec.title'), items: (['1', '2', '3', '4', '5'] as const).map((n) => tr(`case.ops.sec.${n}`)) },
+  { title: tr('case.ops.q.title'), items: (['1', '2', '3', '4', '5'] as const).map((n) => tr(`case.ops.q.${n}`)) },
+];
+---
+
+<section aria-labelledby="ops-title" data-reveal class="wrap flex flex-col gap-10 pb-28 max-md:gap-7 max-md:pb-[72px]">
+  <h2 id="ops-title" class="font-display t-h2 max-md:text-[40px]">{tr('case.ops.title')}</h2>
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(min(380px,100%),1fr))] gap-6">
+    {
+      cards.map((c) => (
+        <div class="card flex flex-col gap-5 p-8">
+          <!-- 20px/650 with the inherited 1.6 line-height, as in the reference artboard. -->
+          <h3 class="text-[20px] font-[650] text-ink">{c.title}</h3>
+          <ul class="bullets flex flex-col gap-[10px] text-[16px] leading-[1.55]">
+            {c.items.map((i) => (
+              <li>{i}</li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>

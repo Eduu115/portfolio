@@ -156,3 +156,85 @@ html[lang="es"] .hero-title { font-size: clamp(42px, 5.1vw, 74px); }
   * { scroll-behavior: auto !important; }
 }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+/* ---------- PipelineExplorer (plan, sección 9) ---------- */
+.px-card { padding: 40px; display: flex; flex-direction: column; gap: 32px; }
+.px-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 20px 40px; }
+.px-head-text { display: flex; flex-direction: column; gap: 12px; }
+.px-intro { font-size: 17px; line-height: 1.55; max-width: 36em; }
+.px-tabs { display: flex; gap: 4px; padding: 4px; border: 1px solid var(--hairline); border-radius: 10px; background: var(--canvas); }
+.px-tab { display: inline-flex; align-items: center; height: 40px; padding: 0 14px; border-radius: 6px; border: 1px solid transparent; background: transparent; color: var(--muted); font: 500 14px/1 var(--font-sans); cursor: pointer; transition: color .18s var(--ease-out-expo); }
+.px-tab:hover { color: var(--ink); }
+.px-tab.is-on { background: var(--surface-2); color: var(--ink); border-color: var(--hairline-strong); }
+.px-canvas { padding: 28px; border-radius: 10px; background: var(--canvas); border: 1px solid var(--hairline); }
+.px-flow { display: grid; grid-template-columns: minmax(0,1fr) 28px minmax(0,1fr) 28px minmax(0,1fr) 28px minmax(0,1fr) 28px 72px 28px minmax(0,1.1fr); align-items: center; }
+.px-flow.is-main { align-items: stretch; }
+.px-flow.is-branches { min-height: 124px; align-items: start; }
+.px-bracket-row { position: relative; height: 32px; }
+.px-bracket { grid-column: 3 / 8; align-self: end; height: 10px; border: 1px solid var(--hairline-strong); border-bottom: 0; margin-bottom: 8px; }
+.px-bracket-label { grid-column: 3 / 8; grid-row: 1; justify-self: center; align-self: start; font-family: var(--font-mono); font-stretch: 87.5%; font-size: 11.5px; color: var(--muted); background: var(--canvas); padding: 0 10px; }
+.px-node { background: var(--surface-1); border: 1px solid var(--hairline-strong); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; justify-content: center; gap: 4px; min-height: 84px; }
+.px-node.is-small { min-height: 38px; padding: 10px 14px; }
+.px-node.is-fail { border-style: dashed; border-color: var(--fail); }
+.px-node.is-fallback { border-color: var(--accent); }
+.px-node.is-dlt { border-style: dashed; min-height: 52px; }
+.px-name { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-stretch: 87.5%; font-size: 12.5px; color: var(--ink); }
+.px-node.is-fail .px-name { color: var(--fail); }
+.px-desc { font-size: 13px; line-height: 1.4; }
+.px-sub { font-family: var(--font-mono); font-stretch: 87.5%; font-size: 11px; color: var(--muted); }
+.px-arrow { display: flex; align-items: center; justify-content: center; color: var(--accent-text); }
+.px-kafka { display: flex; align-items: center; justify-content: center; align-self: center; height: 40px; border-radius: 999px; border: 1px solid var(--accent-line); background: var(--canvas); font-family: var(--font-mono); font-stretch: 87.5%; font-size: 12px; color: var(--accent-text); }
+.px-stack { display: flex; flex-direction: column; justify-content: center; gap: 8px; }
+.px-branch { display: flex; flex-direction: column; align-items: stretch; }
+.px-wire { width: 2px; align-self: center; background: var(--hairline-strong); }
+.px-wire.is-accent { background: var(--accent); }
+.px-pill { display: flex; align-items: center; justify-content: center; gap: 8px; height: 38px; border-radius: 999px; border: 1px solid var(--accent-line); font-family: var(--font-mono); font-stretch: 87.5%; font-size: 11.5px; color: var(--ink); }
+.px-hint { grid-column: 1 / -1; align-self: center; justify-self: center; padding-top: 40px; font-family: var(--font-mono); font-stretch: 87.5%; font-size: 12px; color: var(--muted); }
+.px-foot { display: flex; flex-wrap: wrap; gap: 24px 64px; align-items: flex-start; }
+.px-narrative { flex: 1 1 520px; display: flex; flex-direction: column; gap: 10px; }
+.px-narrative p { font-size: 16px; line-height: 1.6; max-width: 60ch; }
+.px-facts { flex: 0 1 360px; }
+.px-v { display: flex; flex-direction: column; }
+.px-h { display: none; }
+@media (min-width: 1024px) { .px-h { display: flex; flex-direction: column; } .px-v { display: none; } }
+@media (width < 1024px) {
+  .px-card { padding: 20px; gap: 20px; }
+  .px-tabs { flex-wrap: wrap; }
+  .px-tab { padding: 0 12px; }
+  .px-canvas { padding: 16px; }
+  .px-node { min-height: 0; padding: 12px 14px; gap: 2px; }
+  .px-name { font-size: 12px; }
+  .px-arrow { height: 24px; }
+  .px-orchestrated { border-left: 1px solid var(--hairline-strong); padding-left: 12px; display: flex; flex-direction: column; }
+  .px-bracket-label.is-inline { background: none; padding: 0 0 8px; font-size: 11px; }
+  .px-kafka.is-v { height: 36px; align-self: stretch; }
+  .px-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .px-narrative h3 { font-size: 19px; }
+  .px-narrative p { font-size: 15px; }
+}
+
+/* Ajustes para coincidir con las capturas de referencia (plan 9: solo reglas .px-*). */
+.px-bracket-row { height: 18px; margin-bottom: 13.4px; }
+.px-bracket-row .px-bracket-label { margin-top: -14px; }
+.px-flow.is-branches { margin-top: 9px; }
+.px-node.is-dlt .px-name { font-size: 12px; }
+.px-wire.is-retry { height: 20px; }
+.px-wire.is-dlt { height: 14px; }
+.px-wire.is-fallback { height: 28px; }
+@media (width < 1024px) {
+  .px-head, .px-head-text, .px-foot { display: contents; }
+  .px-title { font-size: 36px; letter-spacing: 0; }
+  .px-intro { font-size: 15.5px; }
+  .px-tab { flex: 0 0 auto; }
+  .px-desc { line-height: inherit; }
+  .px-v .px-name svg, .px-v .px-pill svg { width: 13px; height: 13px; }
+  .px-v .px-pill { height: 34px; gap: 6px; font-size: 11px; }
+  .px-v .px-wire.is-retry { height: 16px; }
+  .px-v .px-wire.is-dlt { height: 12px; }
+  .px-v .px-node.is-dlt svg { display: none; }
+  .px-v .px-sub { font-size: 10.5px; }
+  .px-pair .px-node.is-fail .px-desc { font-size: 12.5px; }
+  .px-narrative { flex: none; gap: 8px; }
+  .px-narrative h3 { line-height: inherit; }
+  .px-facts { flex: none; grid-template-columns: 84px minmax(0, 1fr); padding-top: 16px; border-top: 1px solid var(--hairline); }
+}
