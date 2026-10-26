@@ -83,7 +83,7 @@
 /* ---------- Base ---------- */
 /* In @layer base so Tailwind utilities can override these resets. */
 @layer base {
-  html { background: var(--canvas); -webkit-text-size-adjust: 100%; scroll-padding-top: 80px; }
+  html { background: var(--canvas); -webkit-text-size-adjust: 100%; scroll-padding-top: 80px; touch-action: manipulation; }
   body {
     margin: 0;
     background: var(--canvas);

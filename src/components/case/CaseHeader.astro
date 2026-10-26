@@ -22,9 +22,9 @@ const links = [
 >
   <a
     href={`${localizePath('/', lang)}#work`}
-    class="inline-flex min-h-11 items-center gap-2 self-start text-[14px] font-medium text-muted no-underline max-md:font-normal"
+    class="group inline-flex min-h-11 items-center gap-2 self-start text-[14px] font-medium text-muted no-underline max-md:font-normal"
   >
-    <Icon name="arrow-left" />{tr('case.back')}
+    <Icon name="arrow-left" class="transition-transform duration-200 ease-out-expo motion-safe:group-hover:[transform:translateX(3px)]" />{tr('case.back')}
   </a>
   <div class="flex flex-col gap-5 max-md:contents">
     <p class="mono text-[13px] text-muted max-md:text-[12px]">{tr('case.eyebrow')}</p>
