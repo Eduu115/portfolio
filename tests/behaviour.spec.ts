@@ -183,3 +183,26 @@ test.describe('pipeline explorer', () => {
     await expect(page).toHaveURL(/:4321\/work\/api-arena$/);
   });
 });
+
+test.describe('motion', () => {
+  test.use({ reducedMotion: 'no-preference' });
+  test('sections reveal once they scroll into view', async ({ page }, info) => {
+    test.skip(info.project.name !== 'desktop-dark', 'runs once');
+    await page.goto('/');
+    const contact = page.locator('#contact');
+    await expect(contact).not.toHaveClass(/is-in/);
+    await contact.scrollIntoViewIfNeeded();
+    await expect(contact).toHaveClass(/is-in/);
+    await expect(contact).toHaveCSS('opacity', '1');
+  });
+});
+
+test('reduced motion leaves everything static', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop-dark', 'runs once');
+  await page.goto('/');
+  const state = await page.evaluate(() => ({
+    rise: [...document.querySelectorAll('.rise, .node-lit')].every((e) => getComputedStyle(e).animationName === 'none'),
+    reveal: [...document.querySelectorAll('[data-reveal]')].every((e) => getComputedStyle(e).opacity === '1'),
+  }));
+  expect(state).toEqual({ rise: true, reveal: true });
+});
