@@ -14,7 +14,8 @@ env:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    # The reference screenshots were rendered on macOS; Linux font rasterising alone pushes the visual diffs past the limits.
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
