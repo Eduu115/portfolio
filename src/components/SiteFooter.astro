@@ -19,11 +19,12 @@ const link =
       <a class={link} href={`mailto:${EMAIL}`}>{tr('common.email')}</a>
     </div>
   </div>
+  <!-- Decorative mark drawn as generated content: same look, no low-contrast text node for assistive tech. -->
   <p
     aria-hidden="true"
     data-testid="footer-mark"
-    class="font-wide mt-[72px] overflow-hidden text-center text-[clamp(26px,6.4vw,92px)] leading-[.78] font-extrabold tracking-[-.01em] whitespace-nowrap text-hairline uppercase max-md:mt-10"
+    data-text="Eduardo Serrano"
+    class="font-wide mt-[72px] overflow-hidden text-center text-[clamp(26px,6.4vw,92px)] leading-[.78] font-extrabold tracking-[-.01em] whitespace-nowrap text-hairline uppercase before:content-[attr(data-text)] max-md:mt-10"
   >
-    Eduardo Serrano
   </p>
 </footer>
