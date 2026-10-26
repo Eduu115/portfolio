@@ -89,3 +89,10 @@ test('light theme colours', async ({ page }, info) => {
   expect(await style(page, 'body', 'background-color')).toBe('rgb(244, 245, 246)');
   expect(await style(page, '.hero-title span', 'color')).toBe('rgb(194, 65, 12)');
 });
+
+test('Spanish hero title size', async ({ page }, info) => {
+  test.skip(info.project.name === 'desktop-light', 'dark projects only');
+  await page.goto('/es');
+  // Owner decision: desktop keeps the plan clamp (5.1vw = 73.44px at 1440), mobile uses 46px.
+  near(await style(page, '.hero-title', 'font-size'), info.project.name === 'mobile-dark' ? 46 : 73.44);
+});
