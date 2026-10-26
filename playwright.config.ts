@@ -1,4 +1,6 @@
 import { defineConfig } from '@playwright/test';
+// BANNED_TERMS lives in .env.local (git-ignored); CI passes it as a secret instead.
+try { process.loadEnvFile('.env.local'); } catch {}
 export default defineConfig({
   testDir: 'tests',
   fullyParallel: true,
