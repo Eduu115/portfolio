@@ -118,7 +118,7 @@ export const ui = {
     'exp.stack.k.frontend': 'frontend', 'exp.stack.v.frontend': 'React, Angular, Tailwind',
     'exp.stack.k.enterprise': 'enterprise', 'exp.stack.v.enterprise': 'SAP GRC, SAP BW/4HANA, Power BI',
 
-    'contact.title': 'Hiring for backend?',
+    'contact.title': 'Hiring a software engineer?',
     'contact.text': "I'm looking for backend and software engineering roles where reliability and system design matter. Email is the fastest way to reach me.",
 
     'footer.built': 'Built with Astro. Self-hosted on my own server.',
@@ -301,7 +301,7 @@ export const ui = {
     'exp.stack.k.frontend': 'frontend', 'exp.stack.v.frontend': 'React, Angular, Tailwind',
     'exp.stack.k.enterprise': 'empresa', 'exp.stack.v.enterprise': 'SAP GRC, SAP BW/4HANA, Power BI',
 
-    'contact.title': '¿Buscas un perfil backend?',
+    'contact.title': '¿Buscas un ingeniero de software?',
     'contact.text': 'Busco puestos de backend y de ingeniería de software donde importen la fiabilidad y el diseño de sistemas. La forma más rápida de contactarme es por email.',
 
     'footer.built': 'Hecho con Astro. Alojado en mi propio servidor.',
