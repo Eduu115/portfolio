@@ -6,12 +6,14 @@ import { PNG } from 'pngjs';
 const REF = 'docs/design/reference/screens/';
 
 /** Compares `actual` with the rows [refY, refY + actual.height) of a reference screen. Writes a diff on failure. */
-function diffRatio(actual: Buffer, ref: string, refY: number, name: string, max: number) {
+function diffRatio(actual: Buffer, ref: string, refY: number, name: string, max: number, masks: { x: number; y: number; w: number; h: number }[] = []) {
   const a = PNG.sync.read(actual);
   const r = PNG.sync.read(readFileSync(REF + ref));
   const { width, height } = a;
   const crop = new PNG({ width, height });
   PNG.bitblt(r, crop, 0, refY, width, height, 0, 0);
+  // Masked areas (content the owner changed after the artboard) are blanked in both images.
+  for (const m of masks) for (let y = m.y; y < Math.min(m.y + m.h, height); y++) for (let x = m.x; x < Math.min(m.x + m.w, width); x++) { const i = (y * width + x) * 4; a.data[i] = a.data[i + 1] = a.data[i + 2] = crop.data[i] = crop.data[i + 1] = crop.data[i + 2] = 0; }
   const diff = new PNG({ width, height });
   const ratio = pixelmatch(a.data, crop.data, diff.data, width, height, { threshold: 0.15 }) / (width * height);
   console.log(`${name}: ${(ratio * 100).toFixed(2)}% different pixels`);
@@ -66,7 +68,9 @@ test('home matches the reference (full page)', async ({ page }, info) => {
   const until = Math.floor(await page.locator('#contact').evaluate((el) => el.getBoundingClientRect().top + scrollY));
   const shot = await page.screenshot({ fullPage: true, clip: { x: 0, y: 0, width: page.viewportSize()!.width, height: until } });
   const max = info.project.name === 'mobile-dark' ? 0.03 : 0.02;
-  expect(diffRatio(shot, ref!, 0, `home-${info.project.name}`, max)).toBeLessThanOrEqual(max);
+  // The saveToWin screenshot was also replaced by the owner, so its window is masked.
+  const win = await page.locator('#stw-title').evaluate((h) => { const r = h.closest('article')!.querySelector('.zoom')!.getBoundingClientRect(); return { x: Math.floor(r.left), y: Math.floor(r.top + scrollY), w: Math.ceil(r.width), h: Math.ceil(r.height) }; });
+  expect(diffRatio(shot, ref!, 0, `home-${info.project.name}`, max, [win])).toBeLessThanOrEqual(max);
 });
 
 test('light home matches the reference (0 to 1386px)', async ({ page }, info) => {
