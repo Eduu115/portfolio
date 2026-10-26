@@ -1,0 +1,14 @@
+---
+import { getLang, localizePath, t } from '../i18n/utils';
+import Button from './Button.astro';
+
+const lang = getLang(Astro.url);
+const tr = t(lang);
+---
+
+<section aria-labelledby="nf-title" class="wrap flex flex-col items-start gap-6 pt-[120px] pb-[160px]">
+  <p class="mono text-[13px] text-muted">404</p>
+  <h1 id="nf-title" class="font-display t-hero">{tr('notFound.title')}</h1>
+  <p class="t-body-lg">{tr('notFound.body')}</p>
+  <Button href={localizePath('/', lang)}>{tr('notFound.cta')}</Button>
+</section>

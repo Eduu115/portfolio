@@ -1,0 +1,9 @@
+---
+import NotFound from '../../components/NotFound.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { t } from '../../i18n/utils';
+---
+
+<BaseLayout title={t('es')('meta.404.title')} seo={false}>
+  <NotFound />
+</BaseLayout>

@@ -5,15 +5,37 @@ import martianUrl from '@fontsource-variable/martian-mono/files/martian-mono-lat
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SkipLink from '../components/SkipLink.astro';
-import { getLang } from '../i18n/utils';
+import { SITE_URL, EMAIL, GITHUB, LINKEDIN } from '../config';
+import { altPath, getLang, t } from '../i18n/utils';
 
 interface Props {
   title: string;
   description?: string;
+  /** false on the 404 pages: no canonical, alternates or social cards. */
+  seo?: boolean;
+  /** Person JSON-LD (home only, plan section 12). */
+  person?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, seo = true, person = false } = Astro.props;
 const lang = getLang(Astro.url);
+const tr = t(lang);
+const abs = (path: string) => new URL(path, SITE_URL).href.replace(/\/$/, '');
+const canonical = abs(altPath(Astro.url, lang));
+const alternates = { en: abs(altPath(Astro.url, 'en')), es: abs(altPath(Astro.url, 'es')) };
+const ogImage = new URL(`/og/og-${lang}.png`, SITE_URL).href;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Eduardo Serrano Trenado',
+  jobTitle: 'Backend Software Engineer',
+  url: abs('/'),
+  email: `mailto:${EMAIL}`,
+  address: { '@type': 'PostalAddress', addressLocality: 'Madrid', addressCountry: 'ES' },
+  worksFor: { '@type': 'Organization', name: 'Deloitte' },
+  sameAs: [LINKEDIN, GITHUB],
+  knowsAbout: ['Java', 'Spring Boot', 'Apache Kafka', 'PostgreSQL', 'Docker', 'SAP ABAP'],
+};
 ---
 
 <html lang={lang} data-theme="dark">
@@ -36,6 +58,27 @@ const lang = getLang(Astro.url);
     <link rel="preload" as="font" type="font/woff2" crossorigin href={martianUrl} />
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    {
+      seo && (
+        <>
+          <link rel="canonical" href={canonical} />
+          <link rel="alternate" hreflang="en" href={alternates.en} />
+          <link rel="alternate" hreflang="es" href={alternates.es} />
+          <link rel="alternate" hreflang="x-default" href={alternates.en} />
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content={title} />
+          {description && <meta property="og:description" content={description} />}
+          <meta property="og:url" content={canonical} />
+          <meta property="og:locale" content={lang === 'es' ? 'es_ES' : 'en_GB'} />
+          <meta property="og:image" content={ogImage} />
+          <meta property="og:image:width" content="1200" />
+          <meta property="og:image:height" content="630" />
+          <meta property="og:image:alt" content={tr('meta.ogAlt')} />
+          <meta name="twitter:card" content="summary_large_image" />
+        </>
+      )
+    }
+    {person && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
