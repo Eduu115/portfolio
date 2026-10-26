@@ -103,3 +103,44 @@ test('mobile menu matches the reference', async ({ page }, info) => {
   const shot = await page.screenshot();
   expect(diffRatio(shot, 'mobile-menu-open-390.png', 0, 'mobile-menu', 0.03)).toBeLessThanOrEqual(0.03);
 });
+
+/** Opens the case study and waits for the explorer island to hydrate in the given scenario. */
+async function openCase(page: Page, scenario: 'happy' | 'consumer' | 'sandbox') {
+  await open(page, scenario === 'happy' ? '/work/api-arena' : `/work/api-arena?scenario=${scenario}`);
+  const tabs = ['Happy path', 'A consumer fails', 'The sandbox fails'];
+  await page.locator('#flow-title').scrollIntoViewIfNeeded();
+  await expect(page.getByRole('button', { name: tabs[['happy', 'consumer', 'sandbox'].indexOf(scenario)] })).toHaveAttribute('aria-pressed', 'true');
+  await page.evaluate(() => window.scrollTo(0, 0));
+}
+
+for (const scenario of ['happy', 'consumer', 'sandbox'] as const) {
+  test(`case study (${scenario}) matches the reference (full page)`, async ({ page }, info) => {
+    test.skip(info.project.name !== 'desktop-dark', 'desktop-dark only');
+    await openCase(page, scenario);
+    await fullPage(page, `case-study-api-arena-${scenario}-1440.png`, `case-${scenario}`, 0.02);
+  });
+}
+
+test('case study (consumer, mobile) matches the reference', async ({ page }, info) => {
+  test.skip(info.project.name !== 'mobile-dark', 'mobile-dark only');
+  // The mobile artboard leaves out the full lanes, the bugs and the ops cards, so only the explorer section
+  // and the tail (recognition, CTA, footer) are compared, at their positions in the reference
+  // (measured from reference/html/case-study-mobile-consumer.html: explorer 2071-3555, tail 3555-4266).
+  await openCase(page, 'consumer');
+  const ref = 'case-study-api-arena-consumer-390.png';
+  const box = async (sel: string) =>
+    page.locator(sel).evaluate((el) => {
+      const r = el.getBoundingClientRect();
+      return { top: Math.round(r.top + scrollY), bottom: Math.round(r.bottom + scrollY) };
+    });
+  const flow = await box('section[aria-labelledby="flow-title"]');
+  expect(Math.abs(flow.bottom - flow.top - (3555 - 2071))).toBeLessThanOrEqual(2);
+  const flowShot = await page.screenshot({ fullPage: true, clip: { x: 0, y: flow.top, width: 390, height: 3555 - 2071 } });
+  expect(diffRatio(flowShot, ref, 2071, 'case-consumer-mobile-flow', 0.03)).toBeLessThanOrEqual(0.03);
+
+  const tail = (await box('section:has(> div > svg) ')).top;
+  const end = await page.evaluate(() => document.documentElement.scrollHeight);
+  expect(Math.abs(end - tail - (4266 - 3555))).toBeLessThanOrEqual(2);
+  const tailShot = await page.screenshot({ fullPage: true, clip: { x: 0, y: end - (4266 - 3555), width: 390, height: 4266 - 3555 } });
+  expect(diffRatio(tailShot, ref, 3555, 'case-consumer-mobile-tail', 0.03)).toBeLessThanOrEqual(0.03);
+});

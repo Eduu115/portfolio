@@ -90,7 +90,7 @@ for (const width of [320, 390, 768, 1024, 1280, 1440]) {
   test(`no horizontal scroll at ${width}px`, async ({ page }, info) => {
     test.skip(info.project.name !== 'desktop-dark', 'width sweep runs once');
     await page.setViewportSize({ width, height: 900 });
-    for (const path of ['/', '/es']) {
+    for (const path of ['/', '/es', '/work/api-arena', '/es/work/api-arena']) {
       await page.goto(path);
       expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
     }
@@ -113,4 +113,73 @@ test('pulse is hidden with reduced motion', async ({ page }, info) => {
   test.skip(info.project.name !== 'desktop-dark', 'runs once');
   await page.goto('/');
   expect(await page.locator('.pulse').evaluate((el) => getComputedStyle(el).display)).toBe('none');
+});
+
+test.describe('pipeline explorer', () => {
+  const tabs = { happy: 'Happy path', consumer: 'A consumer fails', sandbox: 'The sandbox fails' } as const;
+  // The server HTML already shows "Happy path" pressed; Astro drops the island's ssr attribute once React has hydrated.
+  const hydrated = (page: import('@playwright/test').Page) => page.locator('astro-island:not([ssr])').waitFor({ state: 'attached' });
+
+  test('each tab updates aria-pressed, the diagram and the URL', async ({ page }, info) => {
+    test.skip(info.project.name !== 'desktop-dark', 'runs once');
+    await page.goto('/work/api-arena');
+    const group = page.getByRole('group', { name: 'Scenario' });
+    const diagram = page.locator('.px-h');
+    await group.scrollIntoViewIfNeeded();
+    await hydrated(page);
+    await expect(group.getByRole('button', { name: tabs.happy })).toHaveAttribute('aria-pressed', 'true');
+    await expect(diagram.locator('.px-hint')).toBeVisible();
+
+    await group.getByRole('button', { name: tabs.consumer }).click();
+    await expect(group.getByRole('button', { name: tabs.consumer })).toHaveAttribute('aria-pressed', 'true');
+    await expect(group.getByRole('button', { name: tabs.happy })).toHaveAttribute('aria-pressed', 'false');
+    await expect(page).toHaveURL(/\?scenario=consumer$/);
+    await expect(diagram.locator('.px-node.is-fail')).toHaveText(/leaderboard throws/);
+    await expect(diagram.locator('.px-node.is-dlt')).toBeVisible();
+    await expect(page.locator('.px-narrative h3')).toHaveText('A consumer throws');
+
+    await group.getByRole('button', { name: tabs.sandbox }).click();
+    await expect(page).toHaveURL(/\?scenario=sandbox$/);
+    await expect(diagram.locator('.px-node.is-fail')).toContainText('sandbox-service');
+    await expect(diagram.locator('.px-node.is-fallback')).toBeVisible();
+    await expect(page.locator('.px-narrative h3')).toHaveText('The sandbox fails');
+
+    await group.getByRole('button', { name: tabs.happy }).click();
+    await expect(page).toHaveURL(/\/work\/api-arena$/);
+    await expect(diagram.locator('.px-node.is-fail')).toHaveCount(0);
+  });
+
+  test('loading with ?scenario=sandbox starts in that scenario', async ({ page }, info) => {
+    test.skip(info.project.name !== 'desktop-dark', 'runs once');
+    await page.goto('/work/api-arena?scenario=sandbox');
+    await page.locator('#flow-title').scrollIntoViewIfNeeded();
+    await expect(page.getByRole('button', { name: tabs.sandbox })).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('.px-narrative h3')).toHaveText('The sandbox fails');
+  });
+
+  test('tabs work from the keyboard', async ({ page }, info) => {
+    test.skip(info.project.name !== 'desktop-dark', 'runs once');
+    await page.goto('/work/api-arena');
+    const happy = page.getByRole('button', { name: tabs.happy });
+    await happy.scrollIntoViewIfNeeded();
+    await hydrated(page);
+    await expect(happy).toHaveAttribute('aria-pressed', 'true');
+    await happy.focus();
+    await page.keyboard.press('Tab');
+    await expect(page.getByRole('button', { name: tabs.consumer })).toBeFocused();
+    await page.keyboard.press('Enter');
+    await expect(page.getByRole('button', { name: tabs.consumer })).toHaveAttribute('aria-pressed', 'true');
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Space');
+    await expect(page.getByRole('button', { name: tabs.sandbox })).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  test('EN and ES switch keeps the case study page', async ({ page }, info) => {
+    test.skip(info.project.name !== 'desktop-dark', 'runs once');
+    await page.goto('/work/api-arena');
+    await page.getByRole('group', { name: 'Language' }).getByRole('link', { name: 'ES' }).click();
+    await expect(page).toHaveURL(/\/es\/work\/api-arena$/);
+    await page.getByRole('group', { name: 'Idioma' }).getByRole('link', { name: 'EN' }).click();
+    await expect(page).toHaveURL(/:4321\/work\/api-arena$/);
+  });
 });
